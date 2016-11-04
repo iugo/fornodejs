@@ -6,6 +6,9 @@
   "dependencies": {
     "co": "^4.6.0",
     "koa": "^2.0.0-alpha.7",
+    "koa-pug": "^3.0.0-1",
+    "koa-route": "^3.2.0",
+    "koa-static": "^3.0.0",
     "pg": "4.x",
     "randomstring": "^1.1.5"
   },

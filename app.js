@@ -6,7 +6,9 @@
 const Koa = require('koa');
 const app = new Koa();
 const co = require('co');
-var randomstring = require('randomstring');
+const randomstring = require('randomstring');
+const serve = require('koa-static');
+const _ = require('koa-route');
 
 var https = require("https");
 var querystring = require('querystring');
@@ -16,6 +18,46 @@ var crypto = require('crypto');
 const OAPI_HOST = 'https://oapi.dingtalk.com';
 const corpId = process.env.CORPID || require('./env').corpId;
 const secret = process.env.CORPSECRET || require('./env').secret;
+
+app.use(serve('public'));
+
+var db = {
+  tobi: { name: 'tobi', species: 'ferret' },
+  loki: { name: 'loki', species: 'ferret' },
+  jane: { name: 'jane', species: 'ferret' }
+};
+
+var pets = {
+  list: (ctx) => {
+    var names = Object.keys(db);
+    ctx.body = 'pets: ' + names.join(', ');
+  },
+
+  show: (ctx, name) => {
+    var pet = db[name];
+    if (!pet) return ctx.throw('cannot find that pet', 404);
+    ctx.body = pet.name + ' is a ' + pet.species;
+  }
+};
+
+app.use(_.get('/pets', pets.list));
+app.use(_.get('/pets/:name', pets.show));
+
+const Pug = require('koa-pug')
+const pug = new Pug({
+  viewPath: './views',
+  debug: false,
+  pretty: false,
+  compileDebug: false,
+  // locals: global_locals_for_all_pages,
+  // basedir: 'path/for/pug/extends',
+  // helperPath: [
+  //   'path/to/pug/helpers',
+  //   { random: 'path/to/lib/random.js' },
+  //   { _: require('lodash') }
+  // ],
+  app: app // equals to pug.use(app) and app.use(pug.middleware)
+})
 
 app.use(co.wrap(function *(ctx, next) {
     var nonceStr = randomstring.generate(7);
@@ -41,9 +83,13 @@ app.use(co.wrap(function *(ctx, next) {
         }).catch(function(err) {
             console.log(err);
         });
-    }
+    };
 
-    ctx.body = JSON.stringify(yield g());
+    ctx.render('index', {
+        title: '测试中',
+        config: JSON.stringify(yield g())
+    })
+
 }));
 
 app.listen(process.env.PORT || 9876);
