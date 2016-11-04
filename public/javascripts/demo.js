@@ -40,11 +40,11 @@ dd.ready(function() {
             alert('win: ' + JSON.stringify(data));
         },
         onFail: function(err) {
-            alert('fail: ' + JSON.stringify(err) + JSON.stringify(_config));
+            alert('fail: ' + JSON.stringify(err));
         }
     });
 });
 
 dd.error(function(err) {
-    alert('dd error: ' + JSON.stringify(err));
+    alert('dd error: ' + JSON.stringify(err) + JSON.stringify(_config));
 });
