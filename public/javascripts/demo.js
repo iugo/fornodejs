@@ -40,7 +40,7 @@ dd.ready(function() {
             alert('win: ' + JSON.stringify(data));
         },
         onFail: function(err) {
-            alert('fail: ' + JSON.stringify(err));
+            alert('fail: ' + JSON.stringify(err) + JSON.stringify(_config));
         }
     });
 });
