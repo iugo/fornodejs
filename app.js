@@ -75,6 +75,7 @@ app.use(co.wrap(function *(ctx, next) {
                 ticket: ticket
             });
             return {
+                agentId: process.env.AGENTID || 'none',
                 signature: signature,
                 nonceStr: nonceStr,
                 timeStamp: timeStamp,
