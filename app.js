@@ -73,14 +73,15 @@ app.use(co.wrap(function *(ctx, next) {
     function g() {
         return co(function *() {
             var accessToken = (yield invoke('/gettoken', {corpid: corpId, corpsecret: secret}))['access_token'];
-            console.log('预计 accessToken 获取完成')
-            var ticket = (yield invoke('/get_jsapi_ticket', {type: 'jsapi', access_token: accessToken}))['ticket'];
+            console.log('预计 accessToken 获取完成' + accessToken)
+            // var ticket = (yield invoke('/get_jsapi_ticket', {type: 'jsapi', access_token: accessToken}))['ticket'];
+            var ticket = 'RwigliQVRxZ25NIqMmAIEV4pXHejroD810HSCCdyVu1awBP1LEufrn8vtFtyhxmopkyS3njNODu9jwwA6lh6vf';
             console.log('预计 ticket 获取完成' + ticket)
             var signature = sign({
                 nonceStr: nonceStr,
                 timeStamp: timeStamp,
                 url: signedUrl,
-                ticket: 'j0KJ1baIIkVtlbHAHV3gBW30cdJqSXP83ezV3sdvU3MJXrphwb5KQcEfJ0lw8kf7XvapVCp0t5pKcATTeSX1bq'
+                ticket: ticket
             });
             return {
                 agentId: process.env.AGENTID || 'none',
