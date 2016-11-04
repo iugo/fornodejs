@@ -59,6 +59,12 @@ const pug = new Pug({
   app: app // equals to pug.use(app) and app.use(pug.middleware)
 })
 
+var dingdingSign = {
+    accessToken: '',
+    ticket: '',
+    expiration: 0
+}
+
 app.use(co.wrap(function *(ctx, next) {
     var nonceStr = randomstring.generate(7);
     var timeStamp = new Date().getTime();
@@ -67,7 +73,9 @@ app.use(co.wrap(function *(ctx, next) {
     function g() {
         return co(function *() {
             var accessToken = (yield invoke('/gettoken', {corpid: corpId, corpsecret: secret}))['access_token'];
+            console.log('预计 accessToken 获取完成')
             var ticket = (yield invoke('/get_jsapi_ticket', {type: 'jsapi', access_token: accessToken}))['ticket'];
+            console.log('预计 ticket 获取完成')
             var signature = sign({
                 nonceStr: nonceStr,
                 timeStamp: timeStamp,
@@ -111,6 +119,7 @@ function invoke(path, params) {
                     else {
                         cb(result);
                     }
+                    console.log('获取到了结果' + result)
                 });
             }
             else {
