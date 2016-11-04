@@ -75,12 +75,12 @@ app.use(co.wrap(function *(ctx, next) {
             var accessToken = (yield invoke('/gettoken', {corpid: corpId, corpsecret: secret}))['access_token'];
             console.log('预计 accessToken 获取完成')
             var ticket = (yield invoke('/get_jsapi_ticket', {type: 'jsapi', access_token: accessToken}))['ticket'];
-            console.log('预计 ticket 获取完成')
+            console.log('预计 ticket 获取完成' + ticket)
             var signature = sign({
                 nonceStr: nonceStr,
                 timeStamp: timeStamp,
                 url: signedUrl,
-                ticket: ticket
+                ticket: 'j0KJ1baIIkVtlbHAHV3gBW30cdJqSXP83ezV3sdvU3MJXrphwb5KQcEfJ0lw8kf7XvapVCp0t5pKcATTeSX1bq'
             });
             return {
                 agentId: process.env.AGENTID || 'none',
