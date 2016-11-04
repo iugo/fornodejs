@@ -1,14 +1,23 @@
 {
-  "name": "jsapi-demo",
-  "version": "0.0.1",
+  "name": "gymark",
+  "version": "0.0.2",
+  "description": "高远打分系统, 钉钉微应用.",
   "private": true,
   "dependencies": {
-    "koa": "~0.21.0",
-    "koa-route": "~2.4.2",
-    "koa-static": "~1.4.9",
-    "koa-logger": "~1.3.0",
-    "koa-jade": "1.1.0"
+    "co": "^4.6.0",
+    "koa": "^2.0.0-alpha.7",
+    "pg": "4.x",
+    "randomstring": "^1.1.5"
   },
+  "keywords": [
+    "node",
+    "heroku",
+    "koa"
+  ],
+  "engines": {
+    "node": "6.9.1"
+  },
+  "main": "index.js",
   "scripts": {
     "start": "node app.js"
   }

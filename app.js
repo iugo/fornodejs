@@ -1,37 +1,26 @@
 /**
  * Created by liqiao on 8/10/15.
+ * Modified by Zsqk.
  */
 
-var co = require('co');
-var app = require('koa')();
-var route = require('koa-route');
-var logger = require('koa-logger');
-var serve = require('koa-static');
-var jade = require("koa-jade");
+const Koa = require('koa');
+const app = new Koa();
+const co = require('co');
+var randomstring = require('randomstring');
 
 var https = require("https");
 var querystring = require('querystring');
 var url = require('url');
 var crypto = require('crypto');
 
-
 const OAPI_HOST = 'https://oapi.dingtalk.com';
-const corpId = require('./env').corpId;
-const secret = require('./env').secret;
+const corpId = process.env.CORPID || require('./env').corpId;
+const secret = process.env.CORPSECRET || require('./env').secret;
 
-
-app.use(logger());
-
-app.use(serve('public'));
-
-app.use(jade.middleware({
-    viewPath: __dirname + '/views',
-}));
-
-app.use(route.get('/', function *(next) {
-    var nonceStr = 'abcdefg';
+app.use(co.wrap(function *(ctx, next) {
+    var nonceStr = randomstring.generate(7);
     var timeStamp = new Date().getTime();
-    var signedUrl = decodeURIComponent(this.href);
+    var signedUrl = decodeURIComponent(ctx.href);
 
     function g() {
         return co(function *() {
@@ -54,13 +43,10 @@ app.use(route.get('/', function *(next) {
         });
     }
 
-    this.render('index', {
-        title: 'Here we go...',
-        config: JSON.stringify(yield g()),
-    }, true);
+    ctx.body = JSON.stringify(yield g());
 }));
 
-app.listen(3001);
+app.listen(process.env.PORT || 9876);
 
 
 function invoke(path, params) {
