@@ -69,6 +69,7 @@ app.use(co.wrap(function *(ctx, next) {
     var nonceStr = randomstring.generate(7);
     var timeStamp = new Date().getTime();
     var signedUrl = decodeURIComponent(ctx.href);
+    console.log(signedUrl)
 
     function g() {
         return co(function *() {
