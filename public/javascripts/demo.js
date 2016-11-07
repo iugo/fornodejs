@@ -52,33 +52,36 @@ dd.ready(function() {
       onSuccess: function(data) {
         sessionStorage.setItem('selectedPeople', JSON.stringify(data));
         alert('已完成选人')
+
+        alert('查看 ' + sessionStorage.getItem('selectedPeople'))
+        var theUsers = JSON.parse(sessionStorage.getItem('selectedPeople')).map(function (val) {
+            return val.emplId
+        })
+        alert(JSON.stringify(theUsers))
+        sendMessage(theUsers, '您已经获得评分')
       },
       onFail : function(err) {
         alert('出错了' + JSON.stringify(err))
       }
     });
 
-    alert(sessionStorage.getItem('selectedPeople'))
-    var theUsers = JSON.parse(sessionStorage.getItem('selectedPeople')).map(function (val) {
-        return val.emplId
-    })
-    alert(JSON.stringify(theUsers))
-
-    dd.biz.ding.post({
-        // users : ['100', '101'],//用户列表，工号
-        users : theUsers,
-        corpId: _config.corpId, //企业id
-        type: 0, //钉类型 1：image  2：link
-        alertType: 2,
-        // alertDate: {"format":"yyyy-MM-dd HH:mm","value":"2016-11-07 17:00"},
-        text: '您已经获得评分', //消息
-        onSuccess : function() {
-            alert('已发送')
-        },
-        onFail : function() {
-            alert('消息发送失败')
-        }
-    })
+    function sendMessage (people, text) {
+        dd.biz.ding.post({
+            // users : ['100', '101'],//用户列表，工号
+            users : people,
+            corpId: _config.corpId, //企业id
+            type: 0, //钉类型 1：image  2：link
+            alertType: 2,
+            // alertDate: {"format":"yyyy-MM-dd HH:mm","value":"2016-11-07 17:00"},
+            text: text, //消息
+            onSuccess : function() {
+                alert('已发送')
+            },
+            onFail : function() {
+                alert('消息发送失败')
+            }
+        })
+    }
 
 });
 
