@@ -72,11 +72,14 @@ app.use(co.wrap(function *(ctx, next) {
 
     function g() {
         return co(function *() {
-            var accessToken = (yield invoke('/gettoken', {corpid: corpId, corpsecret: secret}))['access_token'];
-            console.log('预计 accessToken 获取完成' + accessToken)
-            // var ticket = (yield invoke('/get_jsapi_ticket', {type: 'jsapi', access_token: accessToken}))['ticket'];
-            var ticket = 'RwigliQVRxZ25NIqMmAIEV4pXHejroD810HSCCdyVu1awBP1LEufrn8vtFtyhxmopkyS3njNODu9jwwA6lh6vf';
-            console.log('预计 ticket 获取完成' + ticket)
+            var accessToken = (yield invoke('/gettoken', {
+                corpid: corpId,
+                corpsecret: secret
+            }))['access_token'];
+            var ticket = (yield invoke('/get_jsapi_ticket', {
+                type: 'jsapi',
+                access_token: accessToken
+            }))['ticket'];
             var signature = sign({
                 nonceStr: nonceStr,
                 timeStamp: timeStamp,
@@ -104,9 +107,8 @@ app.use(co.wrap(function *(ctx, next) {
 
 app.listen(process.env.PORT || 9876);
 
-
 function invoke(path, params) {
-    return function(cb) {
+    return new Promise (function(resolve, reject) {
         https.get(OAPI_HOST + path + '?' + querystring.stringify(params), function(res) {
             if (res.statusCode === 200) {
                 var body = '';
@@ -115,21 +117,18 @@ function invoke(path, params) {
                 }).on('end', function () {
                     var result = JSON.parse(body);
                     if (result && 0 === result.errcode) {
-                        cb(null, result);
+                        // console.log('获取到了结果' + (result.access_token || result.ticket))
+                        resolve(result)
                     }
-                    else {
-                        cb(result);
-                    }
-                    console.log('获取到了结果' + result)
+                    reject(result)
                 });
+            } else {
+                reject(res.statusCode + '访问失败')
             }
-            else {
-                cb(new Error(response.statusCode));
-            }
-        }).on('error', function(e) {
-            cb(e);
-        });
-    }
+        })
+    }).catch(err => {
+        console.log('Promise 错误' + err)
+    })
 }
 
 function sign(params) {
