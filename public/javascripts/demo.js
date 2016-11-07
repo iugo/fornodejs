@@ -15,6 +15,7 @@ dd.config({
         'device.notification.alert',
         'device.notification.prompt',
         'biz.chat.chooseConversation',
+        'biz.contact.complexChoose',
         'biz.ding.post']
 });
 
@@ -32,17 +33,17 @@ dd.ready(function() {
     var head = document.querySelector('h1');
     head.innerHTML = head.innerHTML + ' It rocks!';
 
-    dd.device.notification.alert({
-        message: 'dd.device.notification.alert',
-        title: 'This is title',
-        buttonName: 'button',
-        onSuccess: function(data) {
-            alert('win: ' + JSON.stringify(data));
-        },
-        onFail: function(err) {
-            alert('fail: ' + JSON.stringify(err));
-        }
-    });
+    // dd.device.notification.alert({
+    //     message: 'dd.device.notification.alert',
+    //     title: 'This is title',
+    //     buttonName: 'button',
+    //     onSuccess: function(data) {
+    //         alert('win: ' + JSON.stringify(data));
+    //     },
+    //     onFail: function(err) {
+    //         alert('fail: ' + JSON.stringify(err));
+    //     }
+    // });
 
     dd.biz.contact.complexChoose({
       startWithDepartmentId: 0, //-1表示从自己所在部门开始, 0表示从企业最上层开始，其他数字表示从该部门开始
@@ -53,7 +54,7 @@ dd.ready(function() {
         alert('已完成选人')
       },
       onFail : function(err) {
-        alert('出错了' + err)
+        alert('出错了' + JSON.stringify(err))
       }
     });
 
