@@ -54,10 +54,10 @@ dd.ready(function() {
         alert('已完成选人')
 
         alert('查看 ' + sessionStorage.getItem('selectedPeople'))
-        var theUsers = JSON.parse(sessionStorage.getItem('selectedPeople')).map(function (val) {
+        var theUsers = JSON.parse(sessionStorage.getItem('selectedPeople')).users.map(function (val) {
             return val.emplId
         })
-        alert(JSON.stringify(theUsers))
+        alert(JSON.stringify(theUsers) || '已选中的用户出错')
         sendMessage(theUsers, '您已经获得评分')
       },
       onFail : function(err) {
