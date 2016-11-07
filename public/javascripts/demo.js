@@ -58,49 +58,28 @@ dd.ready(function() {
       }
     });
 
+    alert(sessionStorage.getItem('selectedPeople'))
     var theUsers = JSON.parse(sessionStorage.getItem('selectedPeople')).map(function (val) {
         return val.emplId
     })
+    alert(JSON.stringify(theUsers))
 
     dd.biz.ding.post({
         // users : ['100', '101'],//用户列表，工号
         users : theUsers,
         corpId: _config.corpId, //企业id
-        type: 1, //钉类型 1：image  2：link
+        type: 0, //钉类型 1：image  2：link
         alertType: 2,
-        alertDate: {"format":"yyyy-MM-dd HH:mm","value":"2016-11-07 17:00"},
-        attachment: {
-            images: [''],
-        }, //附件信息
+        // alertDate: {"format":"yyyy-MM-dd HH:mm","value":"2016-11-07 17:00"},
         text: '您已经获得评分', //消息
         onSuccess : function() {
             alert('已发送')
-        //onSuccess将在点击发送之后调用
         },
         onFail : function() {
             alert('消息发送失败')
         }
     })
 
-    dd.biz.ding.post({
-        // users : ['100', '101'],//用户列表，工号
-        users : theUsers,
-        corpId: _config.corpId, //企业id
-        type: 1, //钉类型 1：image  2：link
-        alertType: 2,
-        alertDate: {"format":"yyyy-MM-dd HH:mm","value":"2016-11-07 08:00"},
-        attachment: {
-            images: [''],
-        }, //附件信息
-        text: '您已经获得评分', //消息
-        onSuccess : function() {
-            alert('已发送')
-        //onSuccess将在点击发送之后调用
-        },
-        onFail : function() {
-            alert('消息发送失败')
-        }
-    })
 });
 
 dd.error(function(err) {
