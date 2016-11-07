@@ -21,13 +21,13 @@ dd.config({
 dd.ready(function() {
     alert('dd ready');
 
-    document.addEventListener('pause', function() {
-        alert('pause');
-    });
+    // document.addEventListener('pause', function() {
+    //     alert('pause');
+    // });
 
-    document.addEventListener('resume', function() {
-        alert('resume');
-    });
+    // document.addEventListener('resume', function() {
+    //     alert('resume');
+    // });
 
     var head = document.querySelector('h1');
     head.innerHTML = head.innerHTML + ' It rocks!';
@@ -43,8 +43,43 @@ dd.ready(function() {
             alert('fail: ' + JSON.stringify(err));
         }
     });
+
+    dd.biz.contact.complexChoose({
+      startWithDepartmentId: 0, //-1表示从自己所在部门开始, 0表示从企业最上层开始，其他数字表示从该部门开始
+      selectedUsers: [], //预选用户
+      corpId: _config.corpId, //企业id
+      onSuccess: function(data) {
+        sessionStorage.setItem('selectedPeople', JSON.stringify(data));
+        alert('已完成选人')
+      },
+      onFail : function(err) {
+        alert('出错了' + err)
+      }
+    });
+
+    dd.biz.ding.post({
+        // users : ['100', '101'],//用户列表，工号
+        users : JSON.parse(sessionStorage.getItem('selectedPeople')).map(val => {
+            return val.emplId
+        })
+        corpId: _config.corpId, //企业id
+        type: 1, //钉类型 1：image  2：link
+        alertType: 2,
+        // alertDate: {"format":"yyyy-MM-dd HH:mm","value":"2015-05-09 08:00"},
+        attachment: {
+            images: [''],
+        }, //附件信息
+        text: '您已经获得评分', //消息
+        onSuccess : function() {
+            alert('已发送')
+        //onSuccess将在点击发送之后调用
+        },
+        onFail : function() {
+            alert('消息发送失败')
+        }
+    })
 });
 
 dd.error(function(err) {
-    alert('dd error: ' + JSON.stringify(err) + JSON.stringify(_config));
+    alert('dd error: ' + JSON.stringify(err));
 });
