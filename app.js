@@ -70,6 +70,7 @@ app.use(co.wrap(function *(ctx, next) {
     var timeStamp = new Date().getTime();
     var signedUrl = decodeURIComponent(ctx.href);
     console.log(signedUrl)
+    console.log(ctx.request.protocol)
 
     function g() {
         return co(function *() {
