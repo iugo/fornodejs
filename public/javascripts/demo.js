@@ -61,7 +61,7 @@ dd.ready(function() {
         // users : ['100', '101'],//用户列表，工号
         users : JSON.parse(sessionStorage.getItem('selectedPeople')).map(val => {
             return val.emplId
-        })
+        }),
         corpId: _config.corpId, //企业id
         type: 1, //钉类型 1：image  2：link
         alertType: 2,
