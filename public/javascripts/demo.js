@@ -34,38 +34,6 @@ dd.ready(function() {
     var head = document.querySelector('h1');
     head.innerHTML = head.innerHTML + ' It rocks!';
 
-    // dd.device.notification.alert({
-    //     message: 'dd.device.notification.alert',
-    //     title: 'This is title',
-    //     buttonName: 'button',
-    //     onSuccess: function(data) {
-    //         alert('win: ' + JSON.stringify(data));
-    //     },
-    //     onFail: function(err) {
-    //         alert('fail: ' + JSON.stringify(err));
-    //     }
-    // });
-
-    // 选择人和部门
-    // dd.biz.contact.complexChoose({
-    //   startWithDepartmentId: 0, //-1表示从自己所在部门开始, 0表示从企业最上层开始，其他数字表示从该部门开始
-    //   selectedUsers: [], //预选用户
-    //   corpId: _config.corpId, //企业id
-    //   onSuccess: function(data) {
-    //     sessionStorage.setItem('selectedPeople', JSON.stringify(data));
-    //     alert('已完成选人: ' + sessionStorage.getItem('selectedPeople'))
-
-    //     var theUsers = JSON.parse(sessionStorage.getItem('selectedPeople')).users.map(function (val) {
-    //         return val.emplId
-    //     })
-    //     alert(JSON.stringify(theUsers) || '已选中的用户出错')
-    //     sendMessage(theUsers, '您已经获得评分')
-    //   },
-    //   onFail : function(err) {
-    //     alert('出错了' + JSON.stringify(err))
-    //   }
-    // });
-
     dd.biz.contact.choose({
       startWithDepartmentId: 0, //-1表示打开的通讯录从自己所在部门开始展示, 0表示从企业最上层开始，(其他数字表示从该部门开始:暂时不支持)
       multiple: true, //是否多选： true多选 false单选； 默认true
