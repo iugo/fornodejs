@@ -14,8 +14,6 @@ html
       label 描述
       input(type='text' name='description')
       input(type='hidden' name='itemsId' value='{1, 2}')
-      input(type='hidden' name='markers' value='[{"emplId":"222222","name":"测试人"}]')
-      input(type='hidden' name='berateds' value='[{"emplId":"222222","name":"测试人"}]')
       button(onclick='choosePeople(\'markers\')') 选择评分人
       button(onclick='choosePeople(\'berateds\')') 选择被评分人
       input(type='submit' value='提交' data-url='/api/v1/new-mark')

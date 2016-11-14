@@ -108,7 +108,7 @@ function submit (event) {
   data += '&markers=' + sessionStorage.getItem('markers')
   data += '&berateds=' + sessionStorage.getItem('berateds')
 
-  alert('数据获取正常')
+  alert('数据获取正常' + data)
 
   fetch(event.target.dataset.url, {
     method: 'POST',
@@ -121,5 +121,8 @@ function submit (event) {
   }).then(function (json) {
     alert(JSON.stringify(json))
     console.log(json)
+  }).catch(function(err) {
+    alert(err)
+    console.log(err)
   })
 }
