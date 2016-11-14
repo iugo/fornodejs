@@ -32,6 +32,12 @@ dd.error(function(err) {
   alert('dd error: ' + JSON.stringify(err));
 });
 
+document.addEventListener('DOMContentLoaded', function(event) {
+
+  document.querySelector('input[type=submit]').onclick = submit
+
+});
+
 function sendMessage (people, text) {
   dd.biz.ding.post({
     // users : ['100', '101'],//用户列表，工号
@@ -50,22 +56,21 @@ function sendMessage (people, text) {
   })
 }
 
-function chooseMarkers (event) {
-  console.log('选择人')
+function choosePeople (key) {
   dd.biz.contact.choose({
     startWithDepartmentId: 0,
     multiple: true, //是否多选： true多选 false单选； 默认true
     users: [], //默认选中的用户列表，userid；成功回调中应包含该信息
     corpId: _config.corpId,
     onSuccess: function (data) {
-      sessionStorage.setItem('selectedPeople', JSON.stringify(data));
-      alert('已完成选人: ' + sessionStorage.getItem('selectedPeople'))
-
-      var theUsers = JSON.parse(sessionStorage.getItem('selectedPeople')).map(function (val) {
-          return val.emplId
-      })
-      alert(JSON.stringify(theUsers) || '已选中的用户出错')
-      sendMessage(theUsers, '您已经获得评分')
+      sessionStorage.setItem(key, JSON.stringify(data));
+      returnalert('选人成功, 请继续完成其他操作')
+      // return alert('已完成选人: ' + sessionStorage.getItem(key))
+      // var theUsers = JSON.parse(sessionStorage.getItem('selectedPeople')).map(function (val) {
+      //     return val.emplId
+      // })
+      // alert(JSON.stringify(theUsers) || '已选中的用户出错')
+      // sendMessage(theUsers, '您已经获得评分')
     },
     onFail : function(err) {
       alert('出错了' + JSON.stringify(err))
@@ -96,11 +101,14 @@ function chooseBerateds (event) {
   });
 }
 
-function submit () {
-  console.log('提交')
-  fetch('/users', {
+function submit (event) {
+  var data = 'title=' + document.querySelector('input[name=title]').value
+  data += '&description=' + document.querySelector('input[name=description]').value
+  data += '&markers=' + sessionStorage.getItem('markers')
+  data += '&berateds=' + sessionStorage.getItem('berateds')
+  fetch(event.target.dataset.url, {
     method: 'POST',
-    body: new FormData(form)
+    body: data
   }).then(function (response) {
     return response.json()
   }).then(function (json) {
