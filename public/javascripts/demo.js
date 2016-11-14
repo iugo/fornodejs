@@ -33,7 +33,7 @@ dd.error(function(err) {
 });
 
 document.addEventListener('DOMContentLoaded', function(event) {
-
+  alert('载入完毕')
   document.querySelector('input[type=submit]').onclick = submit
 
 });
@@ -104,8 +104,11 @@ function chooseBerateds (event) {
 function submit (event) {
   var data = 'title=' + document.querySelector('input[name=title]').value
   data += '&description=' + document.querySelector('input[name=description]').value
+  data += '&itemsId=' + document.querySelector('input[name=itemsId]').value
   data += '&markers=' + sessionStorage.getItem('markers')
   data += '&berateds=' + sessionStorage.getItem('berateds')
+
+  alert('数据获取正常')
 
   fetch(event.target.dataset.url, {
     method: 'POST',
