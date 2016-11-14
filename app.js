@@ -15,30 +15,13 @@ var querystring = require('querystring');
 var url = require('url');
 var crypto = require('crypto');
 
+const pets = require('./src/pets.js');
 const OAPI_HOST = 'https://oapi.dingtalk.com';
 const corpId = process.env.CORPID || require('./env').corpId;
 const secret = process.env.CORPSECRET || require('./env').secret;
 
 app.use(serve('public'));
 
-var db = {
-  tobi: { name: 'tobi', species: 'ferret' },
-  loki: { name: 'loki', species: 'ferret' },
-  jane: { name: 'jane', species: 'ferret' }
-};
-
-var pets = {
-  list: (ctx) => {
-    var names = Object.keys(db);
-    ctx.body = 'pets: ' + names.join(', ');
-  },
-
-  show: (ctx, name) => {
-    var pet = db[name];
-    if (!pet) return ctx.throw('cannot find that pet', 404);
-    ctx.body = pet.name + ' is a ' + pet.species;
-  }
-};
 
 app.use(_.get('/pets', pets.list));
 app.use(_.get('/pets/:name', pets.show));
