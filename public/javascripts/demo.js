@@ -109,7 +109,9 @@ function submit (event) {
 
   fetch(event.target.dataset.url, {
     method: 'POST',
-    Content-Type: 'application/x-www-form-urlencoded',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
     body: data
   }).then(function (response) {
     return response.json()
