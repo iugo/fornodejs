@@ -64,7 +64,7 @@ function choosePeople (key) {
     corpId: _config.corpId,
     onSuccess: function (data) {
       sessionStorage.setItem(key, JSON.stringify(data));
-      returnalert('选人成功, 请继续完成其他操作')
+      return alert('选人成功, 请继续完成其他操作')
       // return alert('已完成选人: ' + sessionStorage.getItem(key))
       // var theUsers = JSON.parse(sessionStorage.getItem('selectedPeople')).map(function (val) {
       //     return val.emplId
@@ -106,12 +106,15 @@ function submit (event) {
   data += '&description=' + document.querySelector('input[name=description]').value
   data += '&markers=' + sessionStorage.getItem('markers')
   data += '&berateds=' + sessionStorage.getItem('berateds')
+
   fetch(event.target.dataset.url, {
     method: 'POST',
+    Content-Type: 'application/x-www-form-urlencoded',
     body: data
   }).then(function (response) {
     return response.json()
   }).then(function (json) {
+    alert(JSON.stringify(json))
     console.log(json)
   })
 }
