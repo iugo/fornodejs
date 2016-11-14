@@ -9,22 +9,47 @@ const co = require('co');
 const randomstring = require('randomstring');
 const serve = require('koa-static');
 const _ = require('koa-route');
+const bodyParser = require('koa-bodyparser');
+const compress = require('koa-compress')
 
 var https = require("https");
 var querystring = require('querystring');
 var url = require('url');
 var crypto = require('crypto');
 
+// 业务模块导入
 const pets = require('./src/pets.js');
+const api = require('./src/api.js');
+
 const OAPI_HOST = 'https://oapi.dingtalk.com';
 const corpId = process.env.CORPID || require('./env').corpId;
 const secret = process.env.CORPSECRET || require('./env').secret;
 
 app.use(serve('public'));
 
+app.use(compress({
+    threshold: 1024,
+    flush: require('zlib').Z_SYNC_FLUSH
+}))
+
+app.use(co.wrap(function *(ctx, next) {
+  ctx.type = 'application/json; charset=utf-8'
+  yield next();
+}));
+
+app.use(bodyParser());
 
 app.use(_.get('/pets', pets.list));
 app.use(_.get('/pets/:name', pets.show));
+
+app.use(_.post('/api/v1/new-mark', api.v1.newMark))
+app.use(_.post('/api/v1/new-mark-item', api.v1.newMarkItem))
+app.use(_.get('/api/v1/mark-info/:markId', api.v1.markInfo)) // 不验证权限
+// app.use(_.post('/api/v1/mark/:markId', api.v1.markIt))
+// app.use(_.get('/api/v1/results/:markId/mine', api.v1.myMarkResults))
+// app.use(_.get('/api/v1/results/:markId', api.v1.markResults))
+
+// --- 以下为前端渲染 ---
 
 const Pug = require('koa-pug')
 const pug = new Pug({
@@ -32,14 +57,7 @@ const pug = new Pug({
   debug: false,
   pretty: false,
   compileDebug: false,
-  // locals: global_locals_for_all_pages,
-  // basedir: 'path/for/pug/extends',
-  // helperPath: [
-  //   'path/to/pug/helpers',
-  //   { random: 'path/to/lib/random.js' },
-  //   { _: require('lodash') }
-  // ],
-  app: app // equals to pug.use(app) and app.use(pug.middleware)
+  app: app
 })
 
 var dingdingSign = {
@@ -52,8 +70,6 @@ app.use(co.wrap(function *(ctx, next) {
     var nonceStr = randomstring.generate(7);
     var timeStamp = new Date().getTime();
     var signedUrl = decodeURIComponent(ctx.href);
-    console.log(signedUrl)
-    console.log(ctx.request.protocol)
 
     function g() {
         return co(function *() {
