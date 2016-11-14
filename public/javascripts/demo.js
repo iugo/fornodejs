@@ -110,6 +110,8 @@ function submit (event) {
 
   alert('数据获取正常' + data)
 
+  alert(typeof fetch)
+
   fetch(event.target.dataset.url, {
     method: 'POST',
     headers: {
