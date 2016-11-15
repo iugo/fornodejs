@@ -1,28 +1,18 @@
 body {
-  padding: 50px;
+  padding: 40px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-a {
-  color: #00B7FF;
+.bottom-space {
+  margin-bottom: 1em;
 }
 
-.log-i {
-  color: green;
+legend {
+  font-size: 1.2em;
 }
 
-.log-e {
-  color: red;
-}
-
-.tag {
-  display: inline-block;
-  width: 170px;
-}
-
-.api {
-  display: inline-block;
-  width: 300px;
+legend.top-space {
+  padding-top: 1.6em;
 }
 
 .hidden {

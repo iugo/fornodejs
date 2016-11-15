@@ -103,7 +103,7 @@ function chooseBerateds (event) {
 
 function submit (event) {
   var data = 'title=' + document.querySelector('input[name=title]').value
-  data += '&description=' + document.querySelector('input[name=description]').value
+  data += '&description=' + document.querySelector('textarea').value
   data += '&itemsId=' + document.querySelector('input[name=itemsId]').value
   data += '&markers=' + sessionStorage.getItem('markers')
   data += '&berateds=' + sessionStorage.getItem('berateds')
