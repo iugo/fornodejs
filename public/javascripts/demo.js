@@ -38,12 +38,11 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 });
 
-function sendMessage (people, text) {
-  dd.biz.ding.post({
-    // users : ['100', '101'],//用户列表，工号
+function sendMessage (people, text, link) {
+  var config = {
     users : people,
     corpId: _config.corpId, //企业id
-    type: 0, //钉类型 1：image  2：link
+    type: 2, //钉类型 1：image  2：link
     alertType: 2,
     // alertDate: {"format":"yyyy-MM-dd HH:mm","value":"2016-11-07 17:00"},
     text: text, //消息
@@ -53,7 +52,9 @@ function sendMessage (people, text) {
     onFail : function() {
         alert('消息发送失败')
     }
-  })
+  }
+  link ? config.attachment = link : config.type = 0
+  dd.biz.ding.post(config)
 }
 
 function choosePeople (key) {
@@ -121,12 +122,16 @@ function submit (event) {
   }).then(function (response) {
     return response.json()
   }).then(function (json) {
-    alert(JSON.stringify(json))
+    // alert(JSON.stringify(json))
+    var markUrl = '/mark/' + json.result.markId
     console.log(json)
     var theUsers = JSON.parse(sessionStorage.getItem('markers')).map(function (val) {
         return val.emplId
     })
-    sendMessage(theUsers, '请进行评分')
+    sendMessage(theUsers, '请进行评分', {
+      title: '请进行评分',
+      url: markUrl
+    })
   }).catch(function(err) {
     alert(err)
     console.log(err)

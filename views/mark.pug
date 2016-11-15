@@ -1,0 +1,34 @@
+doctype html
+html
+  head
+    title= title
+    meta(name='viewport' content='initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width')
+    link(rel='stylesheet' href='http://yui.yahooapis.com/pure/0.6.0/pure-min.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(type="text/javascript") var _config = !{config};
+    script(type='text/javascript', src='//g.alicdn.com/dingding/open-develop/0.8.4/dingtalk.js')
+    script(type='text/javascript', src='/javascripts/fetch.js')
+    script(type='text/javascript', src='/javascripts/mark.js')
+  body
+    h1= title
+
+    .pure-form.pure-form-stacked
+      fieldset
+        legend.top-space 为 *** 评分
+        label 评分项描述(分值: 10)
+        input(type='text' name='totalValue')
+        label 评分项描述(分值: 10)
+        input(type='text' name='totalValue')
+        label 评分项描述(分值: 10)
+        input(type='text' name='totalValue')
+      input.pure-button.pure-button-primary(type='submit' value='提交' data-url='/api/v1/new-mark-item')
+
+      fieldset
+        legend.top-space 为 *** 评分
+        label 评分项描述(分值: 10)
+        input(type='text' name='totalValue')
+        label 评分项描述(分值: 10)
+        input(type='text' name='totalValue')
+        label 评分项描述(分值: 10)
+        input(type='text' name='totalValue')
+      input.pure-button.pure-button-primary(type='submit' value='提交' data-url='/api/v1/new-mark-item')

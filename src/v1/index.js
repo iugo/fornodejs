@@ -82,6 +82,10 @@ module.exports = {
         }
     }),
 
+    markIt: (ctx) => {
+
+    },
+
     markInfo: new CommonQuery({
         query: (ctx, markId) => {
             console.log(markId)

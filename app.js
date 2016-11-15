@@ -14,6 +14,7 @@ const compress = require('koa-compress')
 // 业务模块导入
 const pets = require('./src/pets.js');
 const api = require('./src/api.js');
+const rendering = require('./src/rendering.js');
 
 app.use(serve('public'));
 
@@ -31,6 +32,7 @@ app.use(bodyParser());
 
 app.use(_.get('/pets', pets.list));
 app.use(_.get('/pets/:name', pets.show));
+app.use(_.get('/mark/:markId', rendering.markInfo))
 
 app.use(_.post('/api/v1/new-mark', api.v1.newMark))
 app.use(_.post('/api/v1/new-mark-item', api.v1.newMarkItem))
