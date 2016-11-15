@@ -33,9 +33,7 @@ dd.error(function(err) {
 });
 
 document.addEventListener('DOMContentLoaded', function(event) {
-  alert('载入完毕')
   document.querySelector('input[type=submit]').onclick = submit
-
 });
 
 function sendMessage (people, text, link) {
@@ -110,8 +108,6 @@ function submit (event) {
   data += '&berateds=' + sessionStorage.getItem('berateds')
 
   alert('数据获取正常' + data)
-
-  alert(typeof fetch)
 
   fetch(event.target.dataset.url, {
     method: 'POST',
