@@ -52,13 +52,13 @@ module.exports = {
                   createTimestamp = parseInt(Date.now() / 1000);
             return {
                 text: 'INSERT INTO mark (title, description, items_id, markers, berateds, create_timestamp)'
-                 + ' VALUES ($1, $2, $3, $4, $5, $6);',
+                 + ' VALUES ($1, $2, $3, $4, $5, $6) RETURNING mark_id AS markId;',
                 values: [title, description, itemsId, markers, berateds, createTimestamp]
             }
         },
         fn: (ctx, res) => {
             if (res.rowCount > 0) {
-                return ctx.body = '{"state": "1101", "result": "成功创建一次评分"}'
+                return ctx.body = '{"state": "1101", "result": ' + JSON.stringify(res.rows[0]) + '}'
             }
             ctx.body = '{"error": "出错了"}'
         }
