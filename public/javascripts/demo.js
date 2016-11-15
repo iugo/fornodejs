@@ -127,7 +127,7 @@ function submit (event) {
     })
     sendMessage(theUsers, '请进行评分', {
       title: '请进行评分',
-      url: markUrl,
+      url: location.origin + markUrl,
       image: 'http://ww2.sinaimg.cn/small/62763bfdjw1f9stnfam33j20go0aiab3.jpg',
       text: '请进行评分'
     })
