@@ -1,8 +1,7 @@
 const pg = require('pg');
 const url = require('url');
 
-// const params = url.parse(process.env.DATABASE_URL);
-const params = url.parse('postgres://vqgmauvejnqoqp:EmO75492Xr1gYpGo6ZG5j_LgEp@ec2-54-243-249-159.compute-1.amazonaws.com:5432/d70ldrtuq73921');
+const params = url.parse(process.env.DATABASE_URL);
 
 const auth = params.auth.split(':');
 
