@@ -52,6 +52,7 @@ function sendMessage (people, text, link) {
     }
   }
   link ? config.attachment = link : config.type = 0
+  console.log('将要发的 Ding 类型为: ' + config.type)
   dd.biz.ding.post(config)
 }
 
@@ -126,7 +127,9 @@ function submit (event) {
     })
     sendMessage(theUsers, '请进行评分', {
       title: '请进行评分',
-      url: markUrl
+      url: markUrl,
+      image: 'http://ww2.sinaimg.cn/small/62763bfdjw1f9stnfam33j20go0aiab3.jpg',
+      text: '请进行评分'
     })
   }).catch(function(err) {
     alert(err)
