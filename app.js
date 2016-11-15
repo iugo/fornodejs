@@ -6,24 +6,14 @@
 const Koa = require('koa');
 const app = new Koa();
 const co = require('co');
-const randomstring = require('randomstring');
 const serve = require('koa-static');
 const _ = require('koa-route');
 const bodyParser = require('koa-bodyparser');
 const compress = require('koa-compress')
 
-var https = require("https");
-var querystring = require('querystring');
-var url = require('url');
-var crypto = require('crypto');
-
 // 业务模块导入
 const pets = require('./src/pets.js');
 const api = require('./src/api.js');
-
-const OAPI_HOST = 'https://oapi.dingtalk.com';
-const corpId = process.env.CORPID || require('./env').corpId;
-const secret = process.env.CORPSECRET || require('./env').secret;
 
 app.use(serve('public'));
 
@@ -67,41 +57,10 @@ var dingdingSign = {
 }
 
 app.use(co.wrap(function *(ctx, next) {
-    var nonceStr = randomstring.generate(7);
-    var timeStamp = new Date().getTime();
-    var signedUrl = decodeURIComponent(ctx.href);
-
-    function g() {
-        return co(function *() {
-            var accessToken = (yield invoke('/gettoken', {
-                corpid: corpId,
-                corpsecret: secret
-            }))['access_token'];
-            var ticket = (yield invoke('/get_jsapi_ticket', {
-                type: 'jsapi',
-                access_token: accessToken
-            }))['ticket'];
-            var signature = sign({
-                nonceStr: nonceStr,
-                timeStamp: timeStamp,
-                url: signedUrl,
-                ticket: ticket
-            });
-            return {
-                agentId: process.env.AGENTID || 'none',
-                signature: signature,
-                nonceStr: nonceStr,
-                timeStamp: timeStamp,
-                corpId: corpId
-            };
-        }).catch(function(err) {
-            console.log(err);
-        });
-    };
 
     ctx.render('index', {
         title: '测试中',
-        config: JSON.stringify(yield g())
+        config: yield require('./src/dingConfig.js')(ctx.href)
     })
 
 }));
