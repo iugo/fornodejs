@@ -123,6 +123,10 @@ function submit (event) {
   }).then(function (json) {
     alert(JSON.stringify(json))
     console.log(json)
+    var theUsers = JSON.parse(sessionStorage.getItem('markers')).map(function (val) {
+        return val.emplId
+    })
+    sendMessage(theUsers, '请进行评分')
   }).catch(function(err) {
     alert(err)
     console.log(err)
