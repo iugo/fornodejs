@@ -26,6 +26,16 @@ dd.ready(function() {
   var head = document.querySelector('h1');
   head.innerHTML = head.innerHTML + ' It rocks!';
 
+  dd.runtime.permission.requestAuthCode({
+    corpId: _config.corpId,
+    onSuccess: function(result) {
+      alert('自动登入 code 为: ' + JSON.stringify(result))
+    },
+    onFail: function(err) {
+      alert('无法获得 code: ' + JSON.stringify(err))
+    }
+  })
+
 });
 
 dd.error(function(err) {
