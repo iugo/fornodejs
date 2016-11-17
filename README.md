@@ -1,7 +1,8 @@
-# simple jsapi demo
+# 评分模块 - 基于钉钉
 
-## awesome project
+## 技术栈
 
-### Getting started
-1. set up your own corp id and corp secret in env.js
-2. public/javascript/demo.js rocks!
+- Node.js 6.9.1
+  - koa2
+  - pug
+- PostgreSQL 9.5.5
