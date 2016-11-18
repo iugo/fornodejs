@@ -1,6 +1,6 @@
 const co = require('co');
 const randomstring = require('randomstring');
-var https = require("https");
+var https = require('https');
 var querystring = require('querystring');
 var url = require('url');
 var crypto = require('crypto');
@@ -9,9 +9,10 @@ const OAPI_HOST = 'https://oapi.dingtalk.com';
 const corpId = process.env.CORPID || require('../env').corpId;
 const secret = process.env.CORPSECRET || require('../env').secret;
 
-function invoke(path, params) {
+function invoke (path, params) {
   return new Promise(function (resolve, reject) {
-    https.get(OAPI_HOST + path + '?' + querystring.stringify(params), function (res) {
+    const getUrl = OAPI_HOST + path + '?' + querystring.stringify(params);
+    https.get(getUrl, function (res) {
       if (res.statusCode === 200) {
         var body = '';
         res.on('data', function (data) {
@@ -19,20 +20,20 @@ function invoke(path, params) {
         }).on('end', function () {
           var result = JSON.parse(body);
           if (result && 0 === result.errcode) {
-            resolve(result)
+            resolve(result);
           }
-          reject(result)
+          reject(result);
         });
       } else {
-        reject(res.statusCode + '访问失败')
+        reject(res.statusCode + '访问失败');
       }
-    })
-  }).catch(err => {
-    console.log('Promise 错误' + err)
-  })
+    });
+  }).catch((err) => {
+    console.log('Promise 错误' + err);
+  });
 }
 
-function sign(params) {
+function sign (params) {
   var origUrl = params.url;
   var origUrlObj = url.parse(origUrl);
   delete origUrlObj['hash'];
@@ -55,7 +56,7 @@ module.exports = co.wrap(function* (url) {
   var timeStamp = new Date().getTime();
   var signedUrl = decodeURIComponent(url);
 
-  function g() {
+  function g () {
     return co(function* () {
       var accessToken = (yield invoke('/gettoken', {
         corpid: corpId,
@@ -81,8 +82,8 @@ module.exports = co.wrap(function* (url) {
     }).catch(function (err) {
       console.log(err);
     });
-  };
+  }
 
-  return JSON.stringify(yield g())
+  return JSON.stringify(yield g());
 
-})
+});

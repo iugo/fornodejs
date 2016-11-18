@@ -1,7 +1,8 @@
 const pg = require('pg');
 const url = require('url');
 
-const params = url.parse(process.env.DATABASE_URL || require('../env').postgreUrl);
+const postgreUrl = process.env.DATABASE_URL || require('../env').postgreUrl;
+const params = url.parse(postgreUrl);
 
 const auth = params.auth.split(':');
 
@@ -17,7 +18,7 @@ const config = {
 var pool = new pg.Pool(config);
 
 pool.on('error', function (err, client) {
-    console.error('idle client error', err.message, err.stack)
-})
+  console.error('idle client error', err.message, err.stack);
+});
 
 module.exports = pool;
