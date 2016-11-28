@@ -1,0 +1,15 @@
+{
+  "extends": "airbnb-base",
+  "parserOptions": {
+    "ecmaVersion": 5
+  },
+  "env": {
+    "browser": true
+  },
+  "rules": {
+    "prefer-arrow-callback": "off",
+    "prefer-template": "off",
+    "object-shorthand": "off",
+    "no-var": "off"
+  }
+}
