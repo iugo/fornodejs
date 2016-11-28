@@ -10,6 +10,52 @@ html
     script(type='text/javascript', src='/javascripts/fetch.js')
     script(type='text/javascript', src='/javascripts/demo.js')
   body
+    .pure-menu.top-menu
+      ul.pure-menu-list.pure-menu-horizontal
+        li.pure-menu-item.pure-menu-selected
+          span.up-arw
+          a.pure-menu-link(href='#') 项目设定
+        li.pure-menu-item
+          a.pure-menu-link(href='#') 任务管理
+        li.pure-menu-item
+          a.pure-menu-link(href='#') 数据查询
+        
+    .top-menu-space
+
+    .bottom-space
+      button.pure-button 新建
+      button.pure-button 项目管理
+
+    .pure-form.pure-form-stacked
+      fieldset
+        legend 添加新考核项
+        label 名称
+        input(type='text' name='title')
+        label 描述
+        textarea(name='description')
+        label 评分标准
+        textarea(name='grading')
+      .bottom-space.right
+        button.pure-button(onclick='#') 继续添加
+        button.pure-button(onclick='#') 保存
+        button.pure-button(onclick='#') 返回
+    
+    hr
+
+    .display-line
+      button.pure-button.not-button(onclick='#') 项目名称
+      div
+      div
+        button.pure-button.right-space(onclick='#') 明细/修改
+        button.pure-button(onclick='#') 删除
+
+    .display-line
+      button.pure-button.not-button(onclick='#') 项目名称项目名称项目名称项目名称项目名称项目名称项目名称项
+      div
+        button.pure-button.right-space(onclick='#') 明细/修改
+        button.pure-button(onclick='#') 删除
+
+
     h1= title
     .pure-form.pure-form-stacked
       fieldset
@@ -24,6 +70,8 @@ html
       .bottom-space
         button.pure-button(onclick='choosePeople(\'berateds\')') 选择被评分人
       input.pure-button.pure-button-primary(type='submit' value='提交' data-url='/api/v1/new-mark')
+
+    hr
 
     .pure-form.pure-form-stacked
       fieldset

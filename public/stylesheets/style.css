@@ -7,6 +7,17 @@ body {
   margin-bottom: 1em;
 }
 
+.right-space {
+  margin-right: 1em;
+}
+
+.bottom-space button {
+  margin-right: 1em;
+}
+
+.bottom-space.right {
+}
+
 legend {
   font-size: 1.2em;
 }
@@ -17,4 +28,60 @@ legend.top-space {
 
 .hidden {
   display: none;
+}
+
+.top-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.top-menu .pure-menu-item {
+  width: 33.33%;
+  background-color: #eee;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: #888;
+}
+
+.top-menu a {
+  text-align: center;
+  padding: 1em;
+}
+
+.up-arw {
+  border-color: #888 transparent;
+  border-style: solid;
+  border-width: 0 6px 6px 6px;
+}
+
+.top-menu .up-arw {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  margin-left: -6px;
+}
+
+.top-menu-space {
+  height: 2em;
+}
+
+button.not-button {
+  background: none;
+  padding-left: 0;
+  padding-right: 0;
+  white-space: pre-wrap;
+  text-align: start;
+}
+
+.display-line {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0.5em auto;
+}
+
+.test-div {
+  align-self: flex-end;
 }
