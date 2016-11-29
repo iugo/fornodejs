@@ -3,6 +3,7 @@ html
   head
     title= 'jsapi demo'
     meta(name='viewport' content='initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width')
+    link(rel='stylesheet' href='https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css' integrity='sha384-dNpIIXE8U05kAbPhy3G1cz+yZmTzA6CY8Vg/u2L9xRnHjJiAK76m2BIEaSEV+/aU' crossorigin='anonymous')
     link(rel='stylesheet' href='http://yui.yahooapis.com/pure/0.6.0/pure-min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(type="text/javascript") var _config = !{config};
@@ -23,7 +24,7 @@ html
     .top-menu-space
 
     .bottom-space
-      button.pure-button 新建
+      button.pure-button 新建项目
       button.pure-button 项目管理
 
     .pure-form.pure-form-stacked
@@ -55,29 +56,119 @@ html
         button.pure-button.right-space(onclick='#') 明细/修改
         button.pure-button(onclick='#') 删除
 
+    hr
 
-    h1= title
+    .bottom-space
+      button.pure-button 新建任务
+      button.pure-button 任务管理
+
     .pure-form.pure-form-stacked
       fieldset
-        legend 添加新评分
-        label 标题
+        legend 新建任务
+        label 任务标题
         input(type='text' name='title')
-        label 描述
-        textarea(name='description')
-      input(type='hidden' name='itemsId' value='{1, 2}')
-      .bottom-space
-        button.pure-button(onclick='choosePeople(\'markers\')') 选择评分人
-      .bottom-space
-        button.pure-button(onclick='choosePeople(\'berateds\')') 选择被评分人
-      input.pure-button.pure-button-primary(type='submit' value='提交' data-url='/api/v1/new-mark')
+        .bottom-space
+        label 被考核人
+        ul
+          li 张三
+          li 李四
+        button.pure-button(onclick='choosePeople(\'markers\')') 选择被考核人
+        .bottom-space
+        label 考核项目
+          i.fa.fa-plus-circle.add-item
+        .pure-g
+          .pure-u-1-8
+          .pure-u-7-8
+            fieldset
+              legend 考核项一
+              label 分值
+              input(type='text' name='title')
+              .bottom-space
+              label 评分人
+              ul
+                li 张三
+                li 李四
+              button.pure-button(onclick='choosePeople(\'markers\')') 选择评分人
+    .end
+
+    hr
+    
+    table.pure-table.pure-table-horizontal
+      thead
+        tr
+          td 任务名称
+          td 评分人
+          td 被考核人
+          td 状态
+          td 操作
+      tbody
+        tr
+          td 任务名称
+          td 某某
+          td 某某某
+          td 已考核
+          td
+            button.pure-button Ding
+            //- button.pure-button 删除
+            //- button.pure-button 修改
+        tr
+          td 任务名称
+          td 某某
+          td 某某某
+          td 已考核
+          td
+            button.pure-button Ding
+            //- button.pure-button 删除
+            //- button.pure-button 修改
 
     hr
 
-    .pure-form.pure-form-stacked
-      fieldset
-        legend.top-space 添加新评分项
-        label 评分项描述
-        input(type='text' name='description')
-        label 总分值
-        input(type='text' name='totalValue')
-      input.pure-button.pure-button-primary(type='submit' value='提交' data-url='/api/v1/new-mark-item')
+    table.pure-table.pure-table-horizontal
+      thead
+        tr
+          td 姓名
+          td 项目
+          td 评分人
+          td 分数
+      tbody
+        tr
+          td 张三
+          td
+          td 总计
+          td 19分
+        tr
+          td 张三
+          td 技术
+          td 平均
+          td 9分
+        tr
+          td 张三
+          td 技术
+          td 李四
+          td 9分
+
+    //- h1= title
+    //- .pure-form.pure-form-stacked
+    //-   fieldset
+    //-     legend 添加新评分
+    //-     label 标题
+    //-     input(type='text' name='title')
+    //-     label 描述
+    //-     textarea(name='description')
+    //-   input(type='hidden' name='itemsId' value='{1, 2}')
+    //-   .bottom-space
+    //-     button.pure-button(onclick='choosePeople(\'markers\')') 选择评分人
+    //-   .bottom-space
+    //-     button.pure-button(onclick='choosePeople(\'berateds\')') 选择被评分人
+    //-   input.pure-button.pure-button-primary(type='submit' value='提交' data-url='/api/v1/new-mark')
+
+    //- hr
+
+    //- .pure-form.pure-form-stacked
+    //-   fieldset
+    //-     legend.top-space 添加新评分项
+    //-     label 评分项描述
+    //-     input(type='text' name='description')
+    //-     label 总分值
+    //-     input(type='text' name='totalValue')
+    //-   input.pure-button.pure-button-primary(type='submit' value='提交' data-url='/api/v1/new-mark-item')

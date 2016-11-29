@@ -1,5 +1,5 @@
 body {
-  padding: 40px;
+  padding: 40px 1em;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -84,4 +84,25 @@ button.not-button {
 
 .test-div {
   align-self: flex-end;
+}
+
+label::after {
+  content: ':';
+}
+
+/*i.custom {
+  height: 1.2em;
+  width: 1.2em;
+  color: white;
+  background-color: #909090;
+  border-radius: 50%;
+  display: inline-block;
+  text-align: center;
+  font: 1em all-petite-caps;
+  line-height: 1.5em;
+}*/
+
+i.add-item {
+  font-size: 1.5em;
+  padding: 0.5em;
 }
