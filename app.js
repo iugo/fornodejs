@@ -42,6 +42,10 @@ app.use(_.get('/api/v1/mark-info/:markId', api.v1.markInfo)); // 不验证权限
 // app.use(_.get('/api/v1/results/:markId', api.v1.markResults))
 
 // --- 以下为前端渲染 ---
+// 其实我是想要用单页应用的, 强烈愿望. 可是我赞同其思想的 Polymer 不给力, 流行的 React 我
+// 又不够熟, 无法在几天内完成该项目, 所以只好一页页渲染. 工具类就该单页应用, TODO.
+// 尤其又是基于钉钉的后端无 session 认证系统, 需要钉钉前端 SDK 传来一个参数才能进一步进行
+// 认证, 导致无法直接服务端渲染. 更加适合单页应用在客户端异步渲染. -- iugo
 
 const Pug = require('koa-pug');
 new Pug({
@@ -51,6 +55,28 @@ new Pug({
   compileDebug: false,
   app: app
 });
+
+app.use(_.get('/new-item', co.wrap(function *(ctx) {
+  ctx.render('new-item', {
+    title: '项目设定 -> 新建',
+    config: yield require('./src/dingConfig.js')(ctx.href)
+  });
+})));
+
+app.use(_.get('/items', co.wrap(function *(ctx) {
+  ctx.render('items', {
+    title: '项目设定 -> 管理',
+    config: yield require('./src/dingConfig.js')(ctx.href)
+  });
+})));
+
+app.use(_.get('/item/:itemId', co.wrap(function *(ctx, itemId) {
+  ctx.render('item-info', {
+    title: '项目设定 -> 详情',
+    itemId: itemId,
+    config: yield require('./src/dingConfig.js')(ctx.href)
+  });
+})));
 
 app.use(co.wrap(function *(ctx, next) {
 

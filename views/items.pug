@@ -1,0 +1,33 @@
+doctype html
+html
+  head
+    title= title
+    include includes/head.pug
+    script(type='text/javascript', src='/javascripts/items.js')
+  body
+
+    .pure-menu.top-menu
+      ul.pure-menu-list.pure-menu-horizontal
+        li.pure-menu-item.pure-menu-selected
+          span.up-arw
+          a.pure-menu-link(href='#') 项目设定
+        li.pure-menu-item
+          a.pure-menu-link(href='#') 任务管理
+        li.pure-menu-item
+          a.pure-menu-link(href='#') 数据查询
+    .top-menu-space
+
+    a.pure-button(href='new-item') 新建项目
+
+    .display-line
+      a.pure-button.not-button(href='/item/1') 项目名称
+      div
+      div
+        a.pure-button.right-space(href='/item/1') 明细/修改
+        button.pure-button(onclick='#') 删除
+
+    .display-line
+      a.pure-button.not-button(href='/item/99') 项目名称项目名目名称项
+      div
+        a.pure-button.right-space(href='/item/99') 明细/修改
+        button.pure-button(onclick='#') 删除

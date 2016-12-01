@@ -1,0 +1,32 @@
+doctype html
+html
+  head
+    title= title
+    include includes/head.pug
+    script(type='text/javascript', src='/javascripts/new-item.js')
+  body
+
+    .pure-menu.top-menu
+      ul.pure-menu-list.pure-menu-horizontal
+        li.pure-menu-item.pure-menu-selected
+          span.up-arw
+          a.pure-menu-link(href='#') 项目设定
+        li.pure-menu-item
+          a.pure-menu-link(href='#') 任务管理
+        li.pure-menu-item
+          a.pure-menu-link(href='#') 数据查询
+    .top-menu-space
+
+    .pure-form.pure-form-stacked
+      fieldset
+        legend 添加新考核项
+        label 名称
+        input(type='text' name='title')
+        label 描述
+        textarea(name='description')
+        label 评分标准
+        textarea(name='grading')
+      .bottom-space.right
+        button.pure-button(onclick='#') 继续添加
+        button.pure-button(onclick='#') 保存
+        a.pure-button(href='items') 返回
