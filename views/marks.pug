@@ -1,0 +1,37 @@
+doctype html
+html
+  head
+    title= title
+    include includes/head.pug
+    script(type='text/javascript', src='/javascripts/mark.js')
+  body
+
+    .pure-menu.top-menu
+      ul.pure-menu-list.pure-menu-horizontal
+        li.pure-menu-item
+          a.pure-menu-link(href='#') 项目设定
+        li.pure-menu-item.pure-menu-selected
+          span.up-arw
+          a.pure-menu-link(href='#') 任务管理
+        li.pure-menu-item
+          a.pure-menu-link(href='#') 数据查询
+    .top-menu-space
+
+    a.pure-button(href='/new-mark') 新建任务
+
+    .display-line.marks
+      .title
+        a(href='/mark/1/manage') 十月份黄华街店助考评以及非常多的细则请详细阅读
+        span.time 时间
+      .icon
+        a.pure-button(href='/mark/1/manage')
+          i.fa.fa-info-circle(aria-hidden='true')
+          span  进入
+    .display-line.marks
+      .title
+        a(href='/mark/66/manage') 九月份黄华街店助考评
+        span.time 时间
+      .icon
+        a.pure-button(href='/mark/66/manage')
+          i.fa.fa-info-circle(aria-hidden='true')
+          span  进入

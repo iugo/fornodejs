@@ -27,65 +27,6 @@ html
       button.pure-button 新建任务
       button.pure-button 任务管理
 
-    .pure-form.pure-form-stacked
-      fieldset
-        legend 新建任务
-        label 任务标题
-        input(type='text' name='title')
-        .bottom-space
-        label 被考核人
-        ul
-          li 张三
-          li 李四
-        button.pure-button(onclick='choosePeople(\'markers\')') 选择被考核人
-        .bottom-space
-        label 考核项目
-          i.fa.fa-plus-circle.add-item
-        .pure-g
-          .pure-u-1-8
-          .pure-u-7-8
-            fieldset
-              legend 考核项一
-              label 分值
-              input(type='text' name='title')
-              .bottom-space
-              label 评分人
-              ul
-                li 张三
-                li 李四
-              button.pure-button(onclick='choosePeople(\'markers\')') 选择评分人
-    .end
-
-    hr
-
-    table.pure-table.pure-table-horizontal
-      thead
-        tr
-          td 任务名称
-          td 评分人
-          td 被考核人
-          td 状态
-          td 操作
-      tbody
-        tr
-          td 任务名称
-          td 某某
-          td 某某某
-          td 已考核
-          td
-            button.pure-button Ding
-            //- button.pure-button 删除
-            //- button.pure-button 修改
-        tr
-          td 任务名称
-          td 某某
-          td 某某某
-          td 已考核
-          td
-            button.pure-button Ding
-            //- button.pure-button 删除
-            //- button.pure-button 修改
-
     hr
 
     table.pure-table.pure-table-horizontal

@@ -32,7 +32,7 @@ app.use(bodyParser());
 
 app.use(_.get('/pets', pets.list));
 app.use(_.get('/pets/:name', pets.show));
-app.use(_.get('/mark/:markId', rendering.markInfo));
+// app.use(_.get('/mark/:markId', rendering.markInfo));
 
 app.use(_.post('/api/v1/new-mark', api.v1.newMark));
 app.use(_.post('/api/v1/new-mark-item', api.v1.newMarkItem));
@@ -74,6 +74,36 @@ app.use(_.get('/item/:itemId', co.wrap(function *(ctx, itemId) {
   ctx.render('item-info', {
     title: '项目设定 -> 详情',
     itemId: itemId,
+    config: yield require('./src/dingConfig.js')(ctx.href)
+  });
+})));
+
+app.use(_.get('/new-mark', co.wrap(function *(ctx) {
+  ctx.render('new-mark', {
+    title: '任务管理 -> 新建',
+    config: yield require('./src/dingConfig.js')(ctx.href)
+  });
+})));
+
+app.use(_.get('/marks', co.wrap(function *(ctx) {
+  ctx.render('marks', {
+    title: '任务管理 -> 管理',
+    config: yield require('./src/dingConfig.js')(ctx.href)
+  });
+})));
+
+app.use(_.get('/mark/:markId/manage', co.wrap(function *(ctx, markId) {
+  ctx.render('mark-info', {
+    title: '任务管理 -> 详情',
+    markId: markId,
+    config: yield require('./src/dingConfig.js')(ctx.href)
+  });
+})));
+
+app.use(_.get('/mark/:markId', co.wrap(function *(ctx, markId) {
+  ctx.render('mark', {
+    title: '进行评分',
+    markId: markId,
     config: yield require('./src/dingConfig.js')(ctx.href)
   });
 })));
