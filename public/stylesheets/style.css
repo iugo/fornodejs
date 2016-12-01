@@ -11,11 +11,9 @@ body {
   margin-right: 1em;
 }
 
+/* 准备弃置 */
 .bottom-space button {
   margin-right: 1em;
-}
-
-.bottom-space.right {
 }
 
 legend {
@@ -67,7 +65,7 @@ legend.top-space {
   height: 2em;
 }
 
-button.not-button {
+a.not-button, button.not-button {
   background: none;
   padding-left: 0;
   padding-right: 0;
