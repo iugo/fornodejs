@@ -1,0 +1,35 @@
+.pure-menu.top-menu
+  ul.pure-menu-list.pure-menu-horizontal
+    case select
+      when 'item'
+        li.pure-menu-item.pure-menu-selected
+          span.up-arw
+          a.pure-menu-link(href='#') 项目设定
+        li.pure-menu-item
+          a.pure-menu-link(href='#') 任务管理
+        li.pure-menu-item
+          a.pure-menu-link(href='#') 数据查询
+      when 'mark'
+        li.pure-menu-item
+          a.pure-menu-link(href='#') 项目设定
+        li.pure-menu-item.pure-menu-selected
+          span.up-arw
+          a.pure-menu-link(href='#') 任务管理
+        li.pure-menu-item
+          a.pure-menu-link(href='#') 数据查询
+      when 'result'
+        li.pure-menu-item
+          a.pure-menu-link(href='#') 项目设定
+        li.pure-menu-item
+          a.pure-menu-link(href='#') 任务管理
+        li.pure-menu-item.pure-menu-selected
+          span.up-arw
+          a.pure-menu-link(href='#') 数据查询
+      default
+        li.pure-menu-item
+          a.pure-menu-link(href='#') 项目设定
+        li.pure-menu-item
+          a.pure-menu-link(href='#') 任务管理
+        li.pure-menu-item
+          a.pure-menu-link(href='#') 数据查询
+.top-menu-space
