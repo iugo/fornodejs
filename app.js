@@ -34,9 +34,9 @@ app.use(_.get('/pets', pets.list));
 app.use(_.get('/pets/:name', pets.show));
 // app.use(_.get('/mark/:markId', rendering.markInfo));
 
-app.use(_.post('/api/v1/new-mark', api.v1.newMark));
-app.use(_.post('/api/v1/new-mark-item', api.v1.newMarkItem));
-app.use(_.get('/api/v1/mark-info/:markId', api.v1.markInfo)); // 不验证权限
+app.use(_.post('/api/v2/mark-items', api.v2.newMarkItem));
+// app.use(_.post('/api/v1/new-mark', api.v1.newMark));
+// app.use(_.get('/api/v1/mark-info/:markId', api.v1.markInfo)); // 不验证权限
 // app.use(_.post('/api/v1/mark/:markId', api.v1.markIt))
 // app.use(_.get('/api/v1/results/:markId/mine', api.v1.myMarkResults))
 // app.use(_.get('/api/v1/results/:markId', api.v1.markResults))
