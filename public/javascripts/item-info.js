@@ -53,6 +53,7 @@ var app = {
       document.querySelector('[name=title]').value = v.name;
       document.querySelector('[name=description]').value = v.desc;
       document.querySelector('[name=grading]').value = v.grading;
+      document.querySelector('.loading').classList.add('hidden');
     });
   },
   dingCode: '',
