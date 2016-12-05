@@ -3,6 +3,7 @@ html
   head
     title= title
     include includes/head.pug
+    script(type='text/javascript') var _id = #{itemId};
     script(type='text/javascript', src='/javascripts/item-info.js')
   body
 
@@ -18,5 +19,5 @@ html
         label 评分标准
         textarea(name='grading')
       .bottom-space.right
-        button.pure-button(onclick='#') 保存修改
+        button.pure-button(onclick='app.save();') 保存修改
         a.pure-button(href='/items') 返回
