@@ -35,11 +35,17 @@ var app = {
         alert('插入成功');
       }
     });
-    // window.location = '/items';
+    window.location = '/items';
   },
   addAnother: function () {
-    this._saveData();
-    // window.location.reload(true);
+    this._saveData().then(function (json) {
+      if (json.code !== 0) {
+        alert('插入成功');
+        window.location.reload(true);
+      } else {
+        alert('插入失败, 请重试');
+      }
+    });
   },
   dingCode: '',
 };
