@@ -36,6 +36,7 @@ app.use(_.get('/pets/:name', pets.show));
 
 app.use(_.post('/api/v2/mark-items', api.v2.newMarkItem));
 app.use(_.get('/api/v2/mark-items', api.v2.markItemsList));
+app.use(_.delete('/api/v2/mark-items/:id', api.v2.deleteMarkItem));
 
 // app.use(_.post('/api/v1/new-mark', api.v1.newMark));
 // app.use(_.get('/api/v1/mark-info/:markId', api.v1.markInfo)); // 不验证权限

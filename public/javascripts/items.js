@@ -35,6 +35,7 @@ var app = {
     var el121 = document.createElement('a');
     var el122 = document.createElement('button');
     el1.setAttribute('class', 'display-line');
+    el1.id = data.id;
     el11.setAttribute('href', '/item/' + data.id);
     el11.setAttribute('class', 'pure-button not-button');
     el11.innerText = data.name;
@@ -43,13 +44,33 @@ var app = {
     el121.setAttribute('href', '/item/' + data.id);
     el121.innerText = '明细/修改';
     el122.setAttribute('class', 'pure-button');
-    el122.setAttribute('onclick', '#');
+    el122.setAttribute('onclick', 'app.deleteItem(' + data.id + ');');
     el122.innerText = '删除';
     el1.appendChild(el11);
     el1.appendChild(el12);
     el12.appendChild(el121);
     el12.appendChild(el122);
     return el1;
+  },
+  deleteItem: function (id) {
+    fetch('/api/v2/mark-items/' + id, {
+      method: 'DELETE',
+      headers: {
+        'Dingding-Auth': this.dingCode,
+      },
+    }).then(function (response) {
+      if (response.status !== 204) {
+        throw new Error(response.json());
+      }
+      this._removeItemDom(id);
+      alert('删除成功');
+    }.bind(this)).catch(function(err) {
+      console.log(err);
+    });
+  },
+  _removeItemDom: function (id) {
+    var line = document.getElementById(id);
+    document.querySelector('body').removeChild(line);
   },
   dingCode: '',
 };
