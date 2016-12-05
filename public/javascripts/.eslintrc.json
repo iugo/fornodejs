@@ -1,15 +1,30 @@
 {
+  "root": true,
   "extends": "airbnb-base",
   "parserOptions": {
     "ecmaVersion": 5
   },
   "env": {
+    "es6": false,
     "browser": true
   },
   "rules": {
+    // 为了兼容 ES5
     "prefer-arrow-callback": "off",
     "prefer-template": "off",
+    "no-var": "off",
     "object-shorthand": "off",
-    "no-var": "off"
+
+    // 语义清晰
+    "no-plusplus": [2, {
+      "allowForLoopAfterthoughts": true
+    }],
+    "space-before-function-paren": [2, {
+      "anonymous": "ignore",
+      "named": "always"
+    }],
+
+    // 个人习惯
+    "no-underscore-dangle": "off"
   }
 }
