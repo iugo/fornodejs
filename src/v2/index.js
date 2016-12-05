@@ -26,5 +26,29 @@ module.exports = {
       client.release();
     }
 
+  }),
+
+  markItemsList: co.wrap(function* (ctx) {
+    const query = {
+      text: 'SELECT item_id AS id, name, description AS desc, grading\
+             FROM mark_items;'
+    };
+    const client = yield pool.connect();
+    try {
+      // TODO: 进行超时处理
+      const res = yield client.query(query.text);
+      if (res.rowCount === 0) {
+        throw '连接成功, 但是操作失败';
+      }
+      const out = {
+        error: 0,
+        result: res.rows
+      };
+      ctx.body = JSON.stringify(out);
+    } catch (err) {
+      ctx.body = '{"error": "失败 ' + err + '"}';
+    } finally {
+      client.release();
+    }
   })
 };
