@@ -142,3 +142,31 @@ span.time {
   display: flex;
   justify-content: flex-end;
 }
+
+.all-items {
+  background-color: antiquewhite;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 90%;
+  padding-left: 10%;
+}
+
+.all-items > span {
+  width: 90%;
+  display: inline-block;
+  text-align: right;
+  font-size: 1.3em;
+}
+
+.all-items span.top {
+  padding-top: 1em;
+}
+
+.all-items span.bottom {
+  padding-bottom: 1em;
+}
+
+.all-items li {
+  line-height: 2.5em;
+}
