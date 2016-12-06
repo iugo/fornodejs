@@ -15,7 +15,7 @@ body {
   margin-right: 1em;
 }
 
-.left-space {
+.left-space, fieldset.left-space {
   margin-left: 2em;
 }
 
@@ -169,4 +169,13 @@ span.time {
 
 .all-items li {
   line-height: 2.5em;
+}
+
+.all-items li.selected {
+  background-color: burlywood;
+  color: #eee;
+  position: relative;
+  left: -15%;
+  padding-left: 15%;
+  list-style: none;
 }

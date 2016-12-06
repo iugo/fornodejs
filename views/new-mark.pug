@@ -18,22 +18,11 @@ html
         ul
           li 张三
           li 李四
-        button.pure-button(onclick='choosePeople(\'markers\')') 选择被考核人
+        button.pure-button(onclick='app.selectPlayers();') 选择被考核人
         .bottom-space
 
         label 考核项目
           i.fa.fa-plus-circle.add-item(onclick='app.displayAllItems();')
-        .left-space
-          fieldset
-            legend 考核项一
-            label 总分值
-            input(type='text' name='title')
-            .bottom-space
-            label 评分人
-            ul
-              li 张三
-              li 李四
-            button.pure-button(onclick='choosePeople(\'markers\')') 选择评分人
 
       hr
       .bottom-space
