@@ -11,14 +11,24 @@ var app = {
   _items: {},
 
   selectPlayers: function () {
-    if (typeof this._choosePeople === 'undefined') {
+    if (typeof dd === 'undefined') {
       alert('没有被定义');
       return;
     }
-    this._choosePeople('players', function (data) {
-      this._players = data;
-      alert('选中的人为: ' + JSON.stringify(this._players));
-    }.bind(this));
+
+    dd.biz.contact.choose({
+      startWithDepartmentId: 0,
+      multiple: true,
+      users: [], // [String, ...]
+      corpId: _config.corpId,
+      onSuccess: function (data) {
+        this._players = data;
+        alert('选中的人为: ' + JSON.stringify(this._players));
+      }.bind(this),
+      onFail: function (err) {
+        alert('出错了' + JSON.stringify(err));
+      },
+    });
   },
 
   selectMarkers: function (id) {
