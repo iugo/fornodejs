@@ -183,7 +183,7 @@ dd.config({
   jsApiList: [
     'runtime.permission',
     'device.notification.alert',
-    'biz.contact',
+    'biz.contact.choose',
   ],
 });
 
