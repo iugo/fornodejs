@@ -11,10 +11,44 @@ var app = {
   _items: {},
 
   selectPlayers: function () {
-    choosePeople('players', function (data) {
+    this._choosePeople('players', function (data) {
       this._players = data;
-      alert(this._players);
+      alert('选中的人为: ' + JSON.stringify(this._players));
     }.bind(this));
+  },
+
+  selectMarkers: function (id) {
+    this._choosePeople('markers' + id, function (data) {
+      this._items[id].markers = data;
+      alert('items 信息为: ' + JSON.stringify(this._items));
+
+      this._renderPeopleList('markers' + id, data);
+    }.bind(this));
+  },
+
+  _choosePeople: function (key, fn) {
+    // TODO: 记录上次选中的人
+    dd.biz.contact.choose({
+      startWithDepartmentId: 0,
+      multiple: true,
+      users: [], // [String, ...]
+      corpId: _config.corpId,
+      onSuccess: fn,
+      onFail: function (err) {
+        alert('出错了' + JSON.stringify(err));
+      },
+    });
+  },
+
+  _renderPeopleList: function (key, data) {
+    var ul = document.getElementById(key);
+    var i;
+    var li;
+    for (i = data.length - 1; i >= 0; i--) {
+      li = document.createElement('li');
+      li.innerText = data[i].name;
+      ul.appendChild(li);
+    }
   },
 
   displayAllItems: function () {
@@ -74,7 +108,7 @@ var app = {
     el16.id = 'markers' + data.id;
     el17.classList.add('pure-button');
     el17.innerText = '选择评分人';
-    el17.setAttribute('onclick', 'choosePeople(\'markers\', ' + data.id + ')');
+    el17.setAttribute('onclick', 'app.selectMarkers(' + data.id + ')');
     el1.appendChild(el11);
     el1.appendChild(el12);
     el1.appendChild(el13);
@@ -145,23 +179,9 @@ dd.config({
   jsApiList: [
     'runtime.permission',
     'device.notification.alert',
-    'biz.contact',
+    'biz.contact.choose',
   ],
 });
-
-function choosePeople (key, fn) {
-  // TODO: 记录上次选中的人
-  dd.biz.contact.choose({
-    startWithDepartmentId: 0,
-    multiple: true,
-    users: [], // [String, ...]
-    corpId: _config.corpId,
-    onSuccess: fn,
-    onFail: function (err) {
-      alert('出错了' + JSON.stringify(err));
-    },
-  });
-}
 
 dd.ready(function () {
   dd.runtime.permission.requestAuthCode({
