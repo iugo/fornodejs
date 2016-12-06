@@ -62,8 +62,8 @@ var app = {
     document.querySelector('.all-items').classList.add('hidden');
   },
 
-  selectItem: function (id) {
-    var itemId = this._allItems[id].id;
+  selectItem: function (index) {
+    var itemId = this._allItems[index].id;
 
     if (this._items[itemId] !== undefined) {
       return;
@@ -74,8 +74,8 @@ var app = {
       markers: [],
     };
 
-    this._renderSelectItem(id, 'add');
-    this._renderItemDom(this._allItems[id]);
+    this._renderSelectItem(index, 'add');
+    this._renderItemDom(this._allItems[index]);
     this.hideAllItems();
   },
 
@@ -152,6 +152,12 @@ var app = {
   },
 
   _postData: function _postData () {
+    var itemsID = Object.keys(this._items);
+    var i;
+    for (i = itemsID.length - 1; i >= 0; i--) {
+      this._items.itemsID[i].score = document.querySelector('[name=score' + itemsID[i] + ']').value;
+    }
+    // document
     return fetch('/api/v2/', {
       method: 'POST',
       headers: {
