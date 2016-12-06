@@ -12,9 +12,9 @@ var app = {
 
   selectPlayers: function () {
     var domID = 'players';
+    document.getElementById(domID).innerHTML = '';
     this._choosePeople(function (data) {
       this._players = data;
-      alert('选中的人为: ' + JSON.stringify(this._players));
       this._renderPeopleList(domID, data);
     }.bind(this));
   },
@@ -24,14 +24,11 @@ var app = {
     document.getElementById(domID).innerHTML = '';
     this._choosePeople(function (data) {
       this._items[id].markers = data;
-      alert('items 信息为: ' + JSON.stringify(this._items));
-
       this._renderPeopleList(domID, data);
     }.bind(this));
   },
 
   _choosePeople: function (fn) {
-    // TODO: 消除残留 DOM
     // TODO: 记录上次选中的人
     dd.biz.contact.choose({
       startWithDepartmentId: 0,
@@ -45,8 +42,8 @@ var app = {
     });
   },
 
-  _renderPeopleList: function (key, data) {
-    var ul = document.getElementById(key);
+  _renderPeopleList: function (domID, data) {
+    var ul = document.getElementById(domID);
     var i;
     var li;
     for (i = data.length - 1; i >= 0; i--) {
