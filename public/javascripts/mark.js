@@ -11,6 +11,10 @@ var app = {
   _items: {},
 
   selectPlayers: function () {
+    if (typeof this._choosePeople === 'undefined') {
+      alert('没有被定义');
+      return;
+    }
     this._choosePeople('players', function (data) {
       this._players = data;
       alert('选中的人为: ' + JSON.stringify(this._players));
@@ -18,10 +22,11 @@ var app = {
   },
 
   selectMarkers: function (id) {
-    if (typeof _choosePeople === 'undefined') {
-      return alert('没有被定义');
+    if (typeof this._choosePeople === 'undefined') {
+      alert('没有被定义');
+      return;
     }
-    _choosePeople('markers' + id, function (data) {
+    this._choosePeople('markers' + id, function (data) {
       this._items[id].markers = data;
       alert('items 信息为: ' + JSON.stringify(this._items));
 
@@ -183,7 +188,7 @@ dd.ready(function () {
     },
   });
 
-  var _choosePeople = function (key, fn) {
+  app._choosePeople = function (key, fn) {
     // TODO: 记录上次选中的人
     dd.biz.contact.choose({
       startWithDepartmentId: 0,
