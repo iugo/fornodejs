@@ -11,22 +11,27 @@ var app = {
   _items: {},
 
   selectPlayers: function () {
-    this._choosePeople('players', function (data) {
+    var domID = 'players';
+    this._choosePeople(function (data) {
       this._players = data;
       alert('选中的人为: ' + JSON.stringify(this._players));
+      this._renderPeopleList(domID, data);
     }.bind(this));
   },
 
   selectMarkers: function (id) {
-    this._choosePeople('markers' + id, function (data) {
+    var domID = 'markers' + id;
+    document.getElementById(domID).innerHTML = '';
+    this._choosePeople(function (data) {
       this._items[id].markers = data;
       alert('items 信息为: ' + JSON.stringify(this._items));
 
-      this._renderPeopleList('markers' + id, data);
+      this._renderPeopleList(domID, data);
     }.bind(this));
   },
 
-  _choosePeople: function (key, fn) {
+  _choosePeople: function (fn) {
+    // TODO: 消除残留 DOM
     // TODO: 记录上次选中的人
     dd.biz.contact.choose({
       startWithDepartmentId: 0,
