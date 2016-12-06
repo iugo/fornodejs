@@ -18,26 +18,15 @@ var app = {
   },
 
   selectMarkers: function (id) {
-    this._choosePeople('markers' + id, function (data) {
+    if (typeof _choosePeople === 'undefined') {
+      return alert('没有被定义');
+    }
+    _choosePeople('markers' + id, function (data) {
       this._items[id].markers = data;
       alert('items 信息为: ' + JSON.stringify(this._items));
 
       this._renderPeopleList('markers' + id, data);
     }.bind(this));
-  },
-
-  _choosePeople: function (key, fn) {
-    // TODO: 记录上次选中的人
-    dd.biz.contact.choose({
-      startWithDepartmentId: 0,
-      multiple: true,
-      users: [], // [String, ...]
-      corpId: _config.corpId,
-      onSuccess: fn,
-      onFail: function (err) {
-        alert('出错了' + JSON.stringify(err));
-      },
-    });
   },
 
   _renderPeopleList: function (key, data) {
@@ -193,6 +182,20 @@ dd.ready(function () {
       alert('无法获得 code: ' + JSON.stringify(err));
     },
   });
+
+  var _choosePeople = function (key, fn) {
+    // TODO: 记录上次选中的人
+    dd.biz.contact.choose({
+      startWithDepartmentId: 0,
+      multiple: true,
+      users: [], // [String, ...]
+      corpId: _config.corpId,
+      onSuccess: fn,
+      onFail: function (err) {
+        alert('出错了' + JSON.stringify(err));
+      },
+    });
+  };
 });
 
 document.addEventListener('DOMContentLoaded', function () {
