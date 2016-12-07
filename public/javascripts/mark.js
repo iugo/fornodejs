@@ -151,6 +151,14 @@ var app = {
     });
   },
 
+  submit: function () {
+    this._postData().then(function (json) {
+      console.log(json);
+    }).catch(function (err) {
+      alert(err);
+    });
+  },
+
   _postData: function _postData () {
     var itemsID = Object.keys(this._items);
     var i;
