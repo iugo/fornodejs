@@ -162,8 +162,10 @@ var app = {
   _postData: function _postData () {
     var itemsID = Object.keys(this._items);
     var i;
+    var v;
     for (i = itemsID.length - 1; i >= 0; i--) {
-      this._items.itemsID[i].score = document.querySelector('[name=score' + itemsID[i] + ']').value;
+      v = itemsID[i];
+      this._items[v].score = document.querySelector('[name=score' + v + ']').value;
     }
     return fetch('/api/v2/marks', {
       method: 'POST',
