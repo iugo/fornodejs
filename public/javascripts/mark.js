@@ -157,16 +157,22 @@ var app = {
     for (i = itemsID.length - 1; i >= 0; i--) {
       this._items.itemsID[i].score = document.querySelector('[name=score' + itemsID[i] + ']').value;
     }
-    // document
-    return fetch('/api/v2/', {
+    return fetch('/api/v2/marks', {
       method: 'POST',
       headers: {
+        'Content-Type': 'application/json',
         'Dingding-Auth': this.dingCode,
       },
+      body: JSON.stringify({
+        title: document.querySelector('[name=title]').value,
+        players: this._players,
+        items: this._items,
+      }),
     }).then(function (response) {
-      if (response.status !== 200) {
+      if (response.status !== 201) {
         throw new Error('查询失败');
       }
+      alert('插入成功');
       return response.json();
     });
   },
