@@ -83,7 +83,7 @@ a.not-button, button.not-button {
 
 .display-line {
   display: flex;
-  flex-wrap: wrap;
+  /*flex-wrap: wrap;*/
   justify-content: space-between;
   margin: 0.5em auto;
 }
@@ -122,13 +122,14 @@ span.time {
 }
 
 .title {
-  max-width: 70%;
+  /*max-width: 70%;*/
 }
 
 .display-line.marks{
   border-bottom-style: dashed;
   border-bottom-width: 1px;
-  padding: 0.5em 0;
+  padding: 1em 0;
+  margin: 0;
 }
 
 .display-line.marks > .icon {

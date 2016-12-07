@@ -3,7 +3,7 @@ html
   head
     title= title
     include includes/head.pug
-    script(type='text/javascript', src='/javascripts/mark.js')
+    script(type='text/javascript', src='/javascripts/marks.js')
   body
 
     include includes/top-menu.pug
@@ -11,18 +11,4 @@ html
     a.pure-button(href='/new-mark') 新建任务
 
     .display-line.marks
-      .title
-        a(href='/mark/1/manage') 十月份黄华街店助考评以及非常多的细则请详细阅读
-        span.time 时间
-      .icon
-        a.pure-button(href='/mark/1/manage')
-          i.fa.fa-info-circle(aria-hidden='true')
-          span  进入
-    .display-line.marks
-      .title
-        a(href='/mark/66/manage') 九月份黄华街店助考评
-        span.time 时间
-      .icon
-        a.pure-button(href='/mark/66/manage')
-          i.fa.fa-info-circle(aria-hidden='true')
-          span  进入
+      .loading 资料正在载入中, 请稍等.
