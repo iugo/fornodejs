@@ -180,6 +180,14 @@ span.time {
 
 /* 用户 mark 页面 */
 
-span.grading {
+.mark-page span.grading {
   color: gray;
+}
+
+.mark-page input {
+  margin: 1em 0;
+}
+
+.mark-page .pure-form select {
+  height: 2.5em;
 }
