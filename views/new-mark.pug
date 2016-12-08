@@ -3,7 +3,7 @@ html
   head
     title= title
     include includes/head.pug
-    script(type='text/javascript', src='/javascripts/mark.js')
+    script(type='text/javascript', src='/javascripts/new-mark.js')
   body
 
     include includes/top-menu.pug
@@ -20,8 +20,11 @@ html
         .bottom-space
 
         label 考核项目
-          i.fa.fa-plus-circle.add-item(onclick='app.displayAllItems();')
-
+        .select-items
+        .bottom-space
+        button.pure-button(onclick='app.displayAllItems();')
+          i.fa.fa-plus-circle
+          span  新增考核项
       hr
       .bottom-space
       button.pure-button.right-space(onclick='app.submit();') 确定提交

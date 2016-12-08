@@ -75,12 +75,18 @@ var app = {
     };
 
     this._renderSelectItem(index, 'add');
-    this._renderItemDom(this._allItems[index]);
+    this._renderItemDom(index);
     this.hideAllItems();
   },
 
-  _renderSelectItem: function (id, change) {
-    var num = this._allItems.length - id;
+  deleteItem: function (id, index) {
+    var el = document.getElementById(id);
+    document.querySelector('.pure-form > fieldset .select-items').removeChild(el);
+    this._renderSelectItem(index);
+  },
+
+  _renderSelectItem: function (index, change) {
+    var num = this._allItems.length - index;
     var el = document.querySelector('.all-items li:nth-child(' + num + ')');
     if (change === 'add') {
       return el.classList.add('selected');
@@ -88,7 +94,8 @@ var app = {
     return el.classList.remove('selected');
   },
 
-  _renderItemDom: function (data) {
+  _renderItemDom: function (index) {
+    var data = this._allItems[index];
     // TODO: 将 label 和 input 进行关联,
     //       https://www.w3.org/wiki/HTML/Elements/label
     var el1 = document.createElement('fieldset');
@@ -99,6 +106,8 @@ var app = {
     var el15 = document.createElement('label');
     var el16 = document.createElement('ul');
     var el17 = document.createElement('button');
+    var el18 = document.createElement('button');
+
     el1.classList.add('left-space');
     el1.id = 'item' + data.id;
     el11.innerText = data.name;
@@ -111,6 +120,9 @@ var app = {
     el17.classList.add('pure-button');
     el17.innerText = '选择评分人';
     el17.setAttribute('onclick', 'app.selectMarkers(' + data.id + ')');
+    el18.className = ('pure-button delete-item');
+    el18.innerText = '删除该评分项';
+    el18.setAttribute('onclick', 'app.deleteItem(\'' + el1.id + '\', ' + index + ')');
     el1.appendChild(el11);
     el1.appendChild(el12);
     el1.appendChild(el13);
@@ -118,10 +130,8 @@ var app = {
     el1.appendChild(el15);
     el1.appendChild(el16);
     el1.appendChild(el17);
-    return document.querySelector('.pure-form > fieldset').appendChild(el1);
-  },
-
-  deleteItem: function (id) {
+    el1.appendChild(el18);
+    return document.querySelector('.pure-form > fieldset .select-items').appendChild(el1);
   },
 
   _getAllItems: function _getAllItems () {
@@ -153,6 +163,7 @@ var app = {
 
   submit: function () {
     this._postData().then(function (json) {
+      alert('插入成功');
       console.log(json);
     }).catch(function (err) {
       alert(err);
@@ -182,7 +193,6 @@ var app = {
       if (response.status !== 201) {
         throw new Error('查询失败');
       }
-      alert('插入成功');
       return response.json();
     });
   },

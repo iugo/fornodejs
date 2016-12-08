@@ -108,9 +108,11 @@ label::after {
   line-height: 1.5em;
 }*/
 
-i.add-item {
-  font-size: 1.5em;
-  padding: 0.5em;
+/* new-mark */
+
+button.delete-item.pure-button {
+  display: block;
+  margin-top: 1em;
 }
 
 /* marks */
@@ -119,10 +121,6 @@ span.time {
   display: block;
   font-size: 0.8em;
   color: #909090;
-}
-
-.title {
-  /*max-width: 70%;*/
 }
 
 .display-line.marks{
