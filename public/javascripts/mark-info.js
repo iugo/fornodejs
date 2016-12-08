@@ -167,10 +167,10 @@ var app = {
     });
   },
 
-  submit: function () {
+  saveAnother: function () {
     this._postData().then(function (json) {
       alert('插入成功');
-      console.log(json);
+      window.location = '/mark/' + json.result.id + '/manage';
     }).catch(function (err) {
       alert(err);
     });
@@ -203,7 +203,6 @@ var app = {
     });
   },
 
-    // 得到该任务的初始
   _getData: function (id) {
     return fetch('/api/v2/marks/' + id, {
       method: 'GET',
@@ -220,9 +219,40 @@ var app = {
     });
   },
 
-  // 另存为新任务
-  saveAnother: function () {
+  submit: function () {
+    this._putData(_id).then(function () {
+      alert('修改成功');
+      window.location = '/marks';
+    }).catch(function (err) {
+      alert(err);
+    });
+  },
 
+  _putData: function _putData (id) {
+    var itemsID = Object.keys(this._items);
+    var i;
+    var v;
+    for (i = itemsID.length - 1; i >= 0; i--) {
+      v = itemsID[i];
+      this._items[v].score = document.querySelector('[name=score' + v + ']').value;
+    }
+    return fetch('/api/v2/marks/' + id, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Dingding-Auth': this.dingCode,
+      },
+      body: JSON.stringify({
+        title: document.querySelector('[name=title]').value,
+        players: this._players,
+        items: this._items,
+      }),
+    }).then(function (response) {
+      if (response.status !== 204) {
+        throw new Error('查询失败');
+      }
+      return true;
+    });
   },
 
   render: function () {

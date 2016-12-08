@@ -203,4 +203,31 @@ module.exports = {
     }
   }),
 
+  updateMarkInfo: co.wrap(function* (ctx, id) {
+    // TODO: 对请求中的各项数据进行验证(如非空).
+    const b = ctx.request.body;
+    const query = {
+      text: 'UPDATE marks\
+             SET title = $2, players = $3, items = $4\
+             WHERE mark_id = $1;',
+      values: [id, b.title, b.players, b.items]
+    };
+    var client = yield pool.connect();
+    try {
+      var res = yield client.query(query.text, query.values);
+      if (res.rowCount === 0) {
+        throw '连接成功, 但是操作失败';
+      }
+      console.log(res);
+      ctx.response.status = 204;
+      ctx.length = 0;
+      // TODO: 返回适当的服务端信息
+      // ctx.body = '{"error": 0,"result": {"id": ""}}';
+    } catch (err) {
+      ctx.body = '{"error": "失败 ' + err + '"}';
+    } finally {
+      client.release();
+    }
+  }),
+
 };

@@ -43,6 +43,7 @@ app.use(_.put('/api/v2/mark-items/:id', api.v2.updateMarkItem));
 app.use(_.post('/api/v2/marks', api.v2.newMark));
 app.use(_.get('/api/v2/marks', api.v2.marksList));
 app.use(_.get('/api/v2/marks/:id', api.v2.markInfo));
+app.use(_.put('/api/v2/marks/:id', api.v2.updateMarkInfo));
 
 // app.use(_.get('/api/v1/mark-info/:markId', api.v1.markInfo)); // 不验证权限
 // app.use(_.post('/api/v1/mark/:markId', api.v1.markIt))
