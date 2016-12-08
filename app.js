@@ -10,6 +10,7 @@ const serve = require('koa-static');
 const _ = require('koa-route');
 const bodyParser = require('koa-bodyparser');
 const compress = require('koa-compress');
+const dingJsInfo = require('./src/dingConfig.js').dingJsInfo;
 
 // 业务模块导入
 const pets = require('./src/pets.js');
@@ -69,7 +70,7 @@ app.use(_.get('/new-item', co.wrap(function *(ctx) {
   ctx.render('new-item', {
     title: '项目设定 -> 新建',
     select: 'item',
-    config: yield require('./src/dingConfig.js')(ctx.href)
+    config: yield dingJsInfo(ctx.href)
   });
 })));
 
@@ -77,7 +78,7 @@ app.use(_.get('/items', co.wrap(function *(ctx) {
   ctx.render('items', {
     title: '项目设定 -> 管理',
     select: 'item',
-    config: yield require('./src/dingConfig.js')(ctx.href)
+    config: yield dingJsInfo(ctx.href)
   });
 })));
 
@@ -86,7 +87,7 @@ app.use(_.get('/item/:itemId', co.wrap(function *(ctx, itemId) {
     title: '项目设定 -> 详情',
     itemId: itemId,
     select: 'item',
-    config: yield require('./src/dingConfig.js')(ctx.href)
+    config: yield dingJsInfo(ctx.href)
   });
 })));
 
@@ -94,7 +95,7 @@ app.use(_.get('/new-mark', co.wrap(function *(ctx) {
   ctx.render('new-mark', {
     title: '任务管理 -> 新建',
     select: 'mark',
-    config: yield require('./src/dingConfig.js')(ctx.href)
+    config: yield dingJsInfo(ctx.href)
   });
 })));
 
@@ -102,7 +103,7 @@ app.use(_.get('/marks', co.wrap(function *(ctx) {
   ctx.render('marks', {
     title: '任务管理 -> 管理',
     select: 'mark',
-    config: yield require('./src/dingConfig.js')(ctx.href)
+    config: yield dingJsInfo(ctx.href)
   });
 })));
 
@@ -111,7 +112,7 @@ app.use(_.get('/mark/:markId/manage', co.wrap(function *(ctx, markId) {
     title: '任务管理 -> 详情',
     select: 'mark',
     markId: markId,
-    config: yield require('./src/dingConfig.js')(ctx.href)
+    config: yield dingJsInfo(ctx.href)
   });
 })));
 
@@ -119,7 +120,7 @@ app.use(_.get('/mark/:markId', co.wrap(function *(ctx, markId) {
   ctx.render('mark', {
     title: '进行评分',
     markId: markId,
-    config: yield require('./src/dingConfig.js')(ctx.href)
+    config: yield dingJsInfo(ctx.href)
   });
 })));
 
@@ -127,7 +128,7 @@ app.use(co.wrap(function *(ctx, next) {
 
   ctx.render('index', {
     title: '测试中',
-    config: yield require('./src/dingConfig.js')(ctx.href)
+    config: yield dingJsInfo(ctx.href)
   });
 
 }));
