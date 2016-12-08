@@ -178,4 +178,29 @@ module.exports = {
     }
   }),
 
+  markInfo: co.wrap(function* (ctx, id) {
+    const query = {
+      text: 'SELECT title, players, items, create_timestamp AS "createTime"\
+             FROM marks WHERE mark_id = $1;',
+      values: [id]
+    };
+    const client = yield pool.connect();
+    try {
+      // TODO: 进行超时处理
+      const res = yield client.query(query.text, query.values);
+      if (res.rowCount === 0) {
+        throw '查询失败, 可能因为没有找到该项';
+      }
+      const out = {
+        error: 0,
+        result: res.rows[0]
+      };
+      ctx.body = JSON.stringify(out);
+    } catch (err) {
+      ctx.body = '{"error": "失败 ' + err + '"}';
+    } finally {
+      client.release();
+    }
+  }),
+
 };

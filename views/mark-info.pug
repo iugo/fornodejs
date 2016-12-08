@@ -3,7 +3,8 @@ html
   head
     title= title
     include includes/head.pug
-    script(type='text/javascript', src='/javascripts/mark.js')
+    script(type='text/javascript') var _id = #{markId};
+    script(type='text/javascript', src='/javascripts/mark-info.js')
   body
 
     include includes/top-menu.pug
@@ -15,28 +16,26 @@ html
         input(type='text' name='title')
         .bottom-space
         label 被考核人
-        ul
-          li 张三
-          li 李四
-        button.pure-button(onclick='choosePeople(\'markers\')') 选择被考核人
+        ul(id='players')
+        button.pure-button(onclick='app.selectPlayers();') 重新选择被考核人
         .bottom-space
-        label 考核项目
-          i.fa.fa-plus-circle.add-item
 
-        fieldset.left-space
-          legend 考核项一
-          label 分值
-          input(type='text' name='title')
-          .bottom-space
-          label 评分人
-          ul
-            li 张三
-            li 李四
-          button.pure-button(onclick='choosePeople(\'markers\')') 选择评分人
+        label 考核项目
+        .select-items
+        .bottom-space
+        button.pure-button(onclick='app.displayAllItems();')
+          i.fa.fa-plus-circle
+          span  新增考核项
       hr
       .bottom-space
       button.pure-button.right-space(onclick='#') 另存为
       button.pure-button.pure-button-primary.right-space(onclick='#') 保存修改
       a.pure-button(href='/marks') 返回
-
     .end
+
+    .all-items.hidden
+      span.top(onclick='app.hideAllItems();') 关闭
+      .loading
+        span 正在加载已有项目列表, 请稍等.
+      ul
+      span.bottom(onclick='app.hideAllItems();') 关闭
