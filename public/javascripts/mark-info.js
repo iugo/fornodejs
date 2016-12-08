@@ -103,6 +103,7 @@ var app = {
     var data = this._allItems[index];
     // TODO: 将 label 和 input 进行关联,
     //       https://www.w3.org/wiki/HTML/Elements/label
+    // TODO: 处理项目被删除但是任务还存留项目 id 的情况.
     var el1 = document.createElement('fieldset');
     var el11 = document.createElement('legend');
     var el12 = document.createElement('label');
@@ -128,13 +129,6 @@ var app = {
     el18.className = ('pure-button delete-item');
     el18.innerText = '删除该评分项';
     el18.setAttribute('onclick', 'app.deleteItem(\'' + el1.id + '\', ' + index + ')');
-
-    // if (existingData) {
-    //   console.log(existingData);
-    //   el13.value = existingData.score;
-    //   this._renderPeopleList(el16.id, existingData.markers);
-    // }
-
     el1.appendChild(el11);
     el1.appendChild(el12);
     el1.appendChild(el13);
