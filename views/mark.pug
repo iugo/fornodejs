@@ -6,19 +6,33 @@ html
     script(type='text/javascript', src='/javascripts/mark.js')
   body
 
-    include includes/top-menu.pug
-
     span #{markId}
 
     .pure-form.pure-form-stacked
-      fieldset
+      fieldset(id='people123456789')
         legend.top-space 为 *** 评分
-        label 评分项描述(分值: 10)
-        input(type='text' name='totalValue')
-        label 评分项描述(分值: 10)
-        input(type='text' name='totalValue')
-        label 评分项描述(分值: 10)
-        input(type='text' name='totalValue')
+        h4
+          label 评分项 1
+        span.grading 评分方法评分方法评分方法评分方法评分方法评分方法评分方法评分方法
+        select(name='item1')
+          option 请选择进行评分
+          option 优秀
+          option 良好
+          option 合格
+          option 一般
+          option 较差
+          option 非常差
+        h4
+          label 评分项 2
+        span.grading 评分方法
+        select(name='item2')
+          option 请选择进行评分
+          option 优秀
+          option 良好
+          option 合格
+          option 一般
+          option 较差
+          option 非常差
       input.pure-button.pure-button-primary(type='submit' value='提交' data-url='/api/v1/new-mark-item')
 
       fieldset

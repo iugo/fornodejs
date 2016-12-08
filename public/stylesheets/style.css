@@ -177,3 +177,9 @@ span.time {
   padding-left: 15%;
   list-style: none;
 }
+
+/* 用户 mark 页面 */
+
+span.grading {
+  color: gray;
+}
