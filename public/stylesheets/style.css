@@ -171,8 +171,7 @@ span.time {
 }
 
 .all-items li.selected {
-  background-color: burlywood;
-  color: #eee;
+  background-color: deepskyblue;
   position: relative;
   left: -15%;
   padding-left: 15%;
