@@ -1,5 +1,6 @@
 const co = require('co');
 const pool = require('../postgresql.js');
+const dingUserInfo = require('../dingConfig.js').getUserInfo;
 
 module.exports = {
   newMarkItem: co.wrap(function* (ctx) {
@@ -239,11 +240,8 @@ module.exports = {
    * 执行顺序: 1 和 2 可以同步进行, 完毕后执行 3
    */
   getUserMarkInfo: co.wrap(function* (ctx, id) {
-    // const code = ctx.request.body.dingCode;
-    // const userInfo = dingUserInfo(code);
-    const userInfo = {
-      'userid': '456',
-    };
+    const code = ctx.request.body.dingCode;
+    const userInfo = yield dingUserInfo(code);
 
     /*
      * Require parent variable: client
