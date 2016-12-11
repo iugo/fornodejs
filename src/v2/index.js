@@ -243,7 +243,8 @@ module.exports = {
     const code = ctx.header['dingding-auth'];
     console.log(ctx.header);
     if (!code) {
-      ctx.body = '没有 code';
+      ctx.response.status = 401;
+      ctx.body = '{"error": "没有 code 信息, 无法进行身份认证."}';
       return;
     }
     const userInfo = yield dingUserInfo(code);
