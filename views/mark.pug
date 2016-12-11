@@ -3,6 +3,7 @@ html
   head
     title= title
     include includes/head.pug
+    script(type='text/javascript') var _id = #{markId};
     script(type='text/javascript', src='/javascripts/mark.js')
   body.mark-page
 
@@ -15,7 +16,7 @@ html
           label 评分项 1
         span.grading 评分方法评分方法评分方法评分方法评分方法评分方法评分方法评分方法
         select(name='item1')
-          option 请选择进行评分
+          option 请选择评分
           option(value='10') 优秀
           option(value='8') 良好
           option(value='6') 合格
@@ -26,7 +27,7 @@ html
           label 评分项 2
         span.grading 评分方法
         select(name='item2')
-          option 请选择进行评分
+          option 请选择评分
           option 优秀
           option 良好
           option 合格

@@ -240,7 +240,12 @@ module.exports = {
    * 执行顺序: 1 和 2 可以同步进行, 完毕后执行 3
    */
   getUserMarkInfo: co.wrap(function* (ctx, id) {
-    const code = ctx.request.body.dingCode;
+    const code = ctx.header['dingding-auth'];
+    console.log(ctx.header);
+    if (!code) {
+      ctx.body = '没有 code';
+      return;
+    }
     const userInfo = yield dingUserInfo(code);
 
     /*
