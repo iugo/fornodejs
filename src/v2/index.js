@@ -246,8 +246,8 @@ module.exports = {
       ctx.body = '没有 code';
       return;
     }
-    const userInfo = yield dingUserInfo(code);
-
+    const userInfo = dingUserInfo(code);
+    console.log(userInfo);
     /*
      * Require parent variable: client
      * Require: id String

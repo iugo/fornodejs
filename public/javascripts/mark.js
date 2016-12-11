@@ -28,7 +28,7 @@ var app = {
   },
 
   render: function () {
-    setTimeout(this._getData(), 2000);
+    // setTimeout(this._getData(), 2000);
   },
 
   dingCode: '',
@@ -53,6 +53,7 @@ dd.ready(function () {
     corpId: _config.corpId,
     onSuccess: function (result) {
       app.dingCode = result.code;
+      app._getData();
     },
     onFail: function (err) {
       alert('无法获得 code: ' + JSON.stringify(err));
