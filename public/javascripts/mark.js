@@ -21,9 +21,9 @@ var app = {
         'Dingding-Auth': this.dingCode,
       },
     }).then(function (response) {
-      var text = response.text();
-      alert(text);
-      return text;
+      return response.json();
+    }).then(function (json) {
+      alert(JSON.stringify(json));
     });
   },
 
