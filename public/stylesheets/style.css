@@ -19,11 +19,6 @@ body {
   margin-left: 2em;
 }
 
-/* 准备弃置 */
-.bottom-space button {
-  margin-right: 1em;
-}
-
 legend {
   font-size: 1.2em;
 }

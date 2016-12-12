@@ -308,6 +308,7 @@ var app = {
   },
 
   dingMarkers: function () {
+    alert('进入发钉函数');
     var markers = this._findMarkers(this._items);
     alert('预计发钉对象为: ' + JSON.stringify(markers));
     dd.biz.ding.post({
