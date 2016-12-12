@@ -151,6 +151,7 @@ var app = {
     fetch('/api/v2/results/' + _id, {
       method: 'POST',
       headers: {
+        'Content-Type': 'application/json',
         'Dingding-Auth': this.dingCode,
       },
       body: JSON.stringify(body),
