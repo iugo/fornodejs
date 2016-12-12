@@ -320,6 +320,7 @@ module.exports = {
           });
         }
       }
+
       return selectItems;
     };
 
@@ -362,6 +363,7 @@ module.exports = {
       }
 
       const usedItemsInfo = yield getItemsInfo(usedItems);
+      // TODO: 找到已经评分过的 items, 将相关信息填入
 
       for (let i = usedItemsInfo.length - 1; i >= 0; i--) {
         const id = usedItemsInfo[i].id;
@@ -414,8 +416,6 @@ module.exports = {
     const timestamp = (Date.now() + '').slice(0, -3);
 
     const b = ctx.request.body;
-
-    console.log(b);
 
     const jointQuery = () => {
       const pushValues = (item) => {
