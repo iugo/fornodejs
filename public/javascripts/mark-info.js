@@ -337,8 +337,11 @@ var app = {
     var itemsArr = Object.values(items);
 
     var pushArr = function (arr, v) {
-      if (arr.includes(v)) {
-        return false;
+      var i;
+      for (i = arr.length - 1; i >= 0; i--) {
+        if (arr[i] === v) {
+          return false;
+        }
       }
       arr.push(v);
       return true;
