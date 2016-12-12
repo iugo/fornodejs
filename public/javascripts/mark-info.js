@@ -309,6 +309,7 @@ var app = {
 
   dingMarkers: function () {
     var markers = this._findMarkers(this._items);
+    alert('预计发钉对象为: ' + JSON.stringify(markers));
     dd.biz.ding.post({
       users: markers,
       corpId: _config.corpId,
@@ -321,8 +322,12 @@ var app = {
         text: '请进行评分',
       },
       text: '请进行评分',
-      onSuccess: function() {},
-      onFail: function() {},
+      onSuccess: function() {
+        alert('成功发 ding');
+      },
+      onFail: function() {
+        alert('发 ding 失败了');
+      },
     });
   },
 
@@ -364,6 +369,7 @@ dd.config({
 });
 
 dd.ready(function () {
+  alert('钉钉准备完成');
   dd.runtime.permission.requestAuthCode({
     corpId: _config.corpId,
     onSuccess: function (result) {
