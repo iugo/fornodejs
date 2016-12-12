@@ -29,7 +29,10 @@ function invoke (path, params) {
       }
     });
   }).catch((err) => {
-    console.log('Promise 错误' + err);
+    if (typeof err === 'object') {
+      err = JSON.stringify(err);
+    }
+    console.log('钉钉 Promise 错误' + err);
   });
 }
 
