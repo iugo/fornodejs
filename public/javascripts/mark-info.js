@@ -307,8 +307,8 @@ var app = {
     return itemsIndex;
   },
 
-  deleteMark: function (id) {
-    fetch('/api/v2/marks/' + id, {
+  deleteMark: function () {
+    fetch('/api/v2/marks/' + _id, {
       method: 'DELETE',
       headers: {
         'Dingding-Auth': this.dingCode,
