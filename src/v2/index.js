@@ -155,6 +155,28 @@ module.exports = {
     }
   }),
 
+  deleteMark: co.wrap(function* (ctx, id) {
+    const query = {
+      text: 'DELETE FROM marks WHERE mark_id = $1;',
+      values: [id]
+    };
+    const client = yield pool.connect();
+    try {
+      // TODO: 进行超时处理
+      const res = yield client.query(query.text, query.values);
+      if (res.rowCount === 0) {
+        throw '连接成功, 但是操作失败';
+      }
+      ctx.response.status = 204;
+      ctx.length = 0;
+      // ctx.body = JSON.stringify(out);
+    } catch (err) {
+      ctx.body = '{"error": "失败 ' + err + '"}';
+    } finally {
+      client.release();
+    }
+  }),
+
   marksList: co.wrap(function* (ctx) {
     const query = {
       text: 'SELECT mark_id AS id, title, create_timestamp AS "createTime"\

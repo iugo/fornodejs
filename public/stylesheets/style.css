@@ -137,6 +137,8 @@ span.time {
   justify-content: flex-end;
 }
 
+/* 任务详情管理页面 */
+
 .all-items {
   background-color: antiquewhite;
   position: absolute;
@@ -171,6 +173,10 @@ span.time {
   left: -15%;
   padding-left: 15%;
   list-style: none;
+}
+
+.button-list > .pure-button {
+  margin-bottom: 1em;
 }
 
 /* 用户 mark 页面 */

@@ -307,6 +307,23 @@ var app = {
     return itemsIndex;
   },
 
+  deleteMark: function (id) {
+    fetch('/api/v2/marks/' + id, {
+      method: 'DELETE',
+      headers: {
+        'Dingding-Auth': this.dingCode,
+      },
+    }).then(function (response) {
+      if (response.status !== 204) {
+        throw new Error(response.json());
+      }
+      alert('删除成功');
+      location.href = '/marks';
+    }).catch(function(err) {
+      console.log(err);
+    });
+  },
+
   dingMarkers: function () {
     alert('进入发钉函数');
     var markers = this._findMarkers(this._items);
