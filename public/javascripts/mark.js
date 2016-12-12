@@ -149,7 +149,7 @@ var app = {
       },
     }).then(function (response) {
       if (response.status !== 201) {
-        throw new Error('数据提交错误');
+        throw new Error('数据提交错误, 返回状态为 ' + response.status);
       }
       alert('提交成功');
     }).catch(function(err) {
