@@ -336,6 +336,8 @@ var app = {
     var people = [];
     var itemsArr = Object.values(items);
 
+    alert('遍历 items 完成, 将值转为数组');
+
     var pushArr = function (arr, v) {
       var i;
       for (i = arr.length - 1; i >= 0; i--) {
@@ -347,11 +349,16 @@ var app = {
       return true;
     };
 
+    alert('定义了一个函数');
+
     itemsArr.forEach(function (item) {
       item.markers.forEach(function (marker) {
         pushArr(people, marker.emplId);
       });
     });
+
+    alert('嵌套循环函数完成');
+
     return people;
   },
 
