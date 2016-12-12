@@ -334,7 +334,7 @@ var app = {
 
   _findMarkers: function (items) {
     var people = [];
-    var itemsArr = Object.values(items);
+    var itemsArr = Object.keys(items);
 
     alert('遍历 items 完成, 将值转为数组');
 
@@ -351,7 +351,8 @@ var app = {
 
     alert('定义了一个函数');
 
-    itemsArr.forEach(function (item) {
+    itemsArr.forEach(function (key) {
+      var item = items[key];
       item.markers.forEach(function (marker) {
         pushArr(people, marker.emplId);
       });
