@@ -21,6 +21,9 @@ var app = {
         'Dingding-Auth': this.dingCode,
       },
     }).then(function (response) {
+      if (response.status !== 200) {
+        throw new Error('出错了' + response.status);
+      }
       return response.json();
     }).then(function (json) {
       return json.result;
@@ -182,8 +185,4 @@ dd.ready(function () {
       alert('无法获得 code: ' + JSON.stringify(err));
     },
   });
-});
-
-document.addEventListener('DOMContentLoaded', function () {
-  app.render();
 });
