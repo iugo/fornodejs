@@ -307,6 +307,45 @@ var app = {
     return itemsIndex;
   },
 
+  dingMarkers: function () {
+    var markers = this._findMarkers(this._items);
+    dd.biz.ding.post({
+      users: markers,
+      corpId: _config.corpId,
+      type: 2, // 钉类型 1：image  2：link
+      alertType: 2,
+      attachment: {
+        title: '请进行评分',
+        url: location.origin + '/mark/' + _id,
+        image: 'http://ww2.sinaimg.cn/mw690/62763bfdjw1f9stnfam33j20go0aiab3.jpg',
+        text: '请进行评分',
+      },
+      text: '请进行评分',
+      onSuccess: function() {},
+      onFail: function() {},
+    });
+  },
+
+  _findMarkers: function (items) {
+    var people = [];
+    var itemsArr = Object.values(items);
+
+    var pushArr = function (arr, v) {
+      if (arr.includes(v)) {
+        return false;
+      }
+      arr.push(v);
+      return true;
+    };
+
+    itemsArr.forEach(function (item) {
+      item.markers.forEach(function (marker) {
+        pushArr(people, marker.emplId);
+      });
+    });
+    return people;
+  },
+
   dingCode: '',
 };
 
@@ -319,6 +358,7 @@ dd.config({
   jsApiList: [
     'runtime.permission',
     'device.notification.alert',
+    'biz.ding.post',
     'biz.contact.choose',
   ],
 });
