@@ -393,6 +393,8 @@ module.exports = {
 
     const b = ctx.request.body;
 
+    console.log(b);
+
     const jointQuery = () => {
       const pushValues = (item) => {
         tempArr.push(item.id, item.score, item.total);
