@@ -145,6 +145,9 @@ var app = {
         total: parseInt(item.score, 10),
       };
     }, this);
+
+    alert(JSON.stringify(body));
+
     fetch('/api/v2/results/' + _id, {
       method: 'POST',
       headers: {
