@@ -370,6 +370,7 @@ module.exports = {
     }
 
     const userInfo = yield dingUserInfo(code);
+    console.log(userInfo);
     if (typeof userInfo.userid === 'undefined') {
       ctx.response.status = 403;
       ctx.body = '{"error": "钉钉身份认证出现异常."}';
