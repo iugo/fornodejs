@@ -13,6 +13,7 @@
 var app = {
   _players: [],
   _items: [],
+  _marker: {},
 
   _getData: function () {
     return fetch('/api/v2/marks/' + _id + '/user', {
@@ -117,6 +118,7 @@ var app = {
       document.querySelector('h2').innerText = res.title;
       this._players = res.players;
       this._items = res.items;
+      this._marker = res.marker;
     }.bind(this))
     .then(this._renderDom.bind(this))
     .catch(function (err) {
@@ -132,6 +134,7 @@ var app = {
         }
         return false;
       }),
+      marker: this._marker,
     };
     body.items = this._items.map(function (item) {
       var peopleDom = document.getElementById('player' + id);

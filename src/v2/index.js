@@ -284,12 +284,14 @@ module.exports = {
      * Return Array[Number/String]
      * TODO: 目前返回值中的类型应该是字符串类型的数字, 需要和其他地方统一
      */
+    let __tempMarker;
     const selectItems = (items, userId) => {
       const selectItems = [];
       for (const key in items) {
         if (items[key].markers.length) {
           items[key].markers.findIndex((v) => {
             if (v.emplId === userId) {
+              __tempMarker = v;
               selectItems.push(key);
               return true;
             }
@@ -349,6 +351,7 @@ module.exports = {
         result: {
           title: markInfo.title,
           players: markInfo.players,
+          marker: __tempMarker,
           items: usedItemsInfo,
           createTime: markInfo.createTime
         }
@@ -369,19 +372,22 @@ module.exports = {
       return;
     }
 
-    const userInfo = yield dingUserInfo(code);
-    console.log(userInfo);
-    if (typeof userInfo.userid === 'undefined') {
-      ctx.response.status = 403;
-      ctx.body = '{"error": "钉钉身份认证出现异常."}';
-      return;
-    }
+    // TODO: 处理错误
+    // 钉钉出错, 提示 {"errcode":40078,"errmsg":"不存在的临时授权码"}
+    // 可能因为两次调用 dingUserInfo 造成.
+    // const userInfo = yield dingUserInfo(code);
+    // console.log(userInfo);
+    // if (typeof userInfo.userid === 'undefined') {
+    //   ctx.response.status = 403;
+    //   ctx.body = '{"error": "钉钉身份认证出现异常."}';
+    //   return;
+    // }
 
     // TODO: 从 marks 表中验证 marker 身份
-    const marker = {
-      name: '未命名用户',
-      emplId: userInfo.userid
-    };
+    // const marker = {
+    //   name: '未命名用户',
+    //   emplId: userInfo.userid
+    // };
 
     const timestamp = (Date.now() + '').slice(0, -3);
 
@@ -392,7 +398,7 @@ module.exports = {
         tempArr.push(item.id, item.score, item.total);
       };
 
-      const tempArr = [id, b.player, marker, timestamp];
+      const tempArr = [id, b.player, b.marker, timestamp];
       pushValues(b.items[0]);
       let tempText = '($1, $2, $3, $4, $5, $6, $7)';
 
