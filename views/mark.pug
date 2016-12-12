@@ -7,43 +7,8 @@ html
     script(type='text/javascript', src='/javascripts/mark.js')
   body.mark-page
 
-    span #{markId}
+    h2 请等待数据加载.
 
     .pure-form.pure-form-stacked
-      fieldset(id='people123456789')
-        legend.top-space 为 *** 评分
-        h4
-          label 评分项 1
-        span.grading 评分方法评分方法评分方法评分方法评分方法评分方法评分方法评分方法
-        select(name='item1')
-          option 请选择评分
-          option(value='10') 优秀
-          option(value='8') 良好
-          option(value='6') 合格
-          option(value='4') 一般
-          option(value='2') 较差
-          option(value='0') 非常差
-        h4
-          label 评分项 2
-        span.grading 评分方法
-        select(name='item2')
-          option 请选择评分
-          option 优秀
-          option 良好
-          option 合格
-          option 一般
-          option 较差
-          option 非常差
-      input.pure-button.pure-button-primary(type='submit' value='提交' data-url='/api/v1/new-mark-item')
-
-      fieldset
-        legend.top-space 为 *** 评分
-        label 评分项描述(分值: 10)
-        input(type='text' name='totalValue')
-        label 评分项描述(分值: 10)
-        input(type='text' name='totalValue')
-        label 评分项描述(分值: 10)
-        input(type='text' name='totalValue')
-      input.pure-button.pure-button-primary(type='submit' value='提交' data-url='/api/v1/new-mark-item')
 
     p 评分完毕可直接关闭此页面

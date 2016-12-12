@@ -46,7 +46,8 @@ app.use(_.get('/api/v2/marks', api.v2.marksList));
 app.use(_.get('/api/v2/marks/:id', api.v2.markInfo));
 app.use(_.put('/api/v2/marks/:id', api.v2.updateMarkInfo));
 app.use(_.get('/api/v2/marks/:id/user', api.v2.getUserMarkInfo));
-// app.use(_.post('/api/v1/mark/:markId', api.v1.markIt))
+
+app.use(_.post('/api/v2/results/:id', api.v2.userMarking));
 // app.use(_.get('/api/v1/results/:markId/mine', api.v1.myMarkResults))
 // app.use(_.get('/api/v1/results/:markId', api.v1.markResults))
 

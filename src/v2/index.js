@@ -241,14 +241,24 @@ module.exports = {
    */
   getUserMarkInfo: co.wrap(function* (ctx, id) {
     const code = ctx.header['dingding-auth'];
-    console.log(ctx.header);
     if (!code) {
       ctx.response.status = 401;
       ctx.body = '{"error": "没有 code 信息, 无法进行身份认证."}';
       return;
     }
+
     const userInfo = yield dingUserInfo(code);
-    console.log(userInfo);
+    if (typeof userInfo.userid === 'undefined') {
+      ctx.response.status = 403;
+      ctx.body = '{"error": "钉钉身份认证出现异常."}';
+      return;
+    }
+
+    // 用于跳过钉钉的测试数据
+    // var userInfo = {
+    //   userid: '054560181736092498'
+    // };
+
     /*
      * Require parent variable: client
      * Require: id String
@@ -350,5 +360,74 @@ module.exports = {
       client.release();
     }
   }),
+
+  userMarking: co.wrap(function* (ctx, id) {
+    const code = ctx.header['dingding-auth'];
+    if (!code) {
+      ctx.response.status = 401;
+      ctx.body = '{"error": "没有 code 信息, 无法进行身份认证."}';
+      return;
+    }
+
+    const userInfo = yield dingUserInfo(code);
+    if (typeof userInfo.userid === 'undefined') {
+      ctx.response.status = 403;
+      ctx.body = '{"error": "钉钉身份认证出现异常."}';
+      return;
+    }
+
+    // TODO: 从 marks 表中验证 marker 身份
+    const marker = {
+      name: '未命名用户',
+      emplId: userInfo.userid
+    };
+
+    const timestamp = (Date.now() + '').slice(0, -3);
+
+    const b = ctx.request.body;
+
+    const jointQuery = () => {
+      const pushValues = (item) => {
+        tempArr.push(item.id, item.score, item.total);
+      };
+
+      const tempArr = [id, b.player, marker, timestamp];
+      pushValues(b.items[0]);
+      let tempText = '($1, $2, $3, $4, $5, $6, $7)';
+
+      for (let i = 1, len = b.items.length; i < len; i++) {
+        const num = tempArr.length;
+        const v1 = ', $' + (num + 1);
+        const v2 = ', $' + (num + 2);
+        const v3 = ', $' + (num + 3);
+        tempText += ', ($1, $2, $3, $4' + v1 + v2 + v3 + ')';
+        pushValues(b.items[i]);
+      }
+
+      return {
+        text: 'INSERT INTO mark_results\
+               (mark_id, player, marker, mark_timestamp,\
+               item_id, score, total_score) VALUES ' + tempText + ';',
+        values: tempArr
+      };
+    };
+
+    const query = jointQuery();
+
+    var client = yield pool.connect();
+    try {
+      var res = yield client.query(query.text, query.values);
+      if (res.rowCount === 0) {
+        throw '连接成功, 但是操作失败';
+      }
+      console.log(res);
+      ctx.response.status = 201;
+      ctx.length = 0;
+    } catch (err) {
+      ctx.body = '{"error": "失败 ' + err + '"}';
+    } finally {
+      client.release();
+    }
+  })
 
 };
