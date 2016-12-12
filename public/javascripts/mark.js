@@ -150,6 +150,7 @@ var app = {
       headers: {
         'Dingding-Auth': this.dingCode,
       },
+      body: JSON.stringify(body),
     }).then(function (response) {
       if (response.status !== 201) {
         throw new Error('数据提交错误, 返回状态为 ' + response.status);
