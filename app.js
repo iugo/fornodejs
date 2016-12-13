@@ -49,8 +49,8 @@ app.use(_.put('/api/v2/marks/:id', api.v2.updateMarkInfo));
 app.use(_.get('/api/v2/marks/:id/user', api.v2.getUserMarkInfo));
 
 app.use(_.post('/api/v2/results/:id', api.v2.userMarking));
+app.use(_.get('/api/v2/results/:id', api.v2.markResults));
 // app.use(_.get('/api/v1/results/:markId/mine', api.v1.myMarkResults))
-// app.use(_.get('/api/v1/results/:markId', api.v1.markResults))
 
 // --- 以下为前端渲染 ---
 // 其实我是想要用单页应用的, 强烈愿望. 可是我赞同其思想的 Polymer 不给力, 流行的 React 我

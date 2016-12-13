@@ -459,6 +459,30 @@ module.exports = {
     } finally {
       client.release();
     }
-  })
+  }),
 
+  markResults: co.wrap(function* (ctx, id) {
+    const query = {
+      text: 'SELECT * FROM mark_results WHERE mark_id = $1;',
+      values: [id]
+    };
+    const client = yield pool.connect();
+    try {
+      const res = yield client.query(query.text, query.values);
+      if (res.rowCount === 0) {
+        throw '连接成功, 但是操作失败';
+      }
+      console.log(res);
+      ctx.response.status = 200;
+      const out = {
+        error: 0,
+        result: res.rows
+      };
+      ctx.body = JSON.stringify(out);
+    } catch (err) {
+      ctx.body = '{"error": "失败 ' + err + '"}';
+    } finally {
+      client.release();
+    }
+  }),
 };
