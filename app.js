@@ -125,6 +125,13 @@ app.use(_.get('/mark/:markId', co.wrap(function *(ctx, markId) {
   });
 })));
 
+app.use(_.get('/results/:markId', co.wrap(function *(ctx, markId) {
+  ctx.render('results', {
+    title: '查看评分结果',
+    markId: markId,
+  });
+})));
+
 app.use(co.wrap(function *(ctx, next) {
 
   ctx.render('index', {

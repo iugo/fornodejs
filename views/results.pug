@@ -1,0 +1,34 @@
+doctype html
+html
+  head
+    title= title
+    include includes/head.pug
+    script(type='text/javascript') var _id = #{markId};
+    script(type='text/javascript', src='/javascripts/results.js')
+  body
+
+    include includes/top-menu.pug
+
+    table.pure-table.pure-table-horizontal
+      thead
+        tr
+          td 姓名
+          td 项目
+          td 评分人
+          td 分数
+      tbody
+        tr
+          td 张三
+          td
+          td 总计
+          td 19分
+        tr
+          td 张三
+          td 技术
+          td
+          td 9分
+        tr
+          td 张三
+          td 技术
+          td 李四
+          td 9分
