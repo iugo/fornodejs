@@ -473,7 +473,8 @@ module.exports = {
     try {
       const res = yield client.query(query.text, query.values);
       if (res.rowCount === 0) {
-        throw '连接成功, 但是操作失败';
+        ctx.response.status = 404;
+        throw '没有找到数据';
       }
       ctx.response.status = 200;
       const out = {

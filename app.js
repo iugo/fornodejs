@@ -125,10 +125,19 @@ app.use(_.get('/mark/:markId', co.wrap(function *(ctx, markId) {
   });
 })));
 
-app.use(_.get('/results/:markId', co.wrap(function *(ctx, markId) {
-  ctx.render('results', {
-    title: '查看评分结果',
+app.use(_.get('/result/:markId', co.wrap(function *(ctx, markId) {
+  ctx.render('result', {
+    title: '查看本次评分结果',
+    select: 'result',
     markId: markId,
+  });
+})));
+
+app.use(_.get('/results', co.wrap(function *(ctx) {
+  ctx.render('results', {
+    title: '数据查询',
+    select: 'result',
+    config: yield dingJsInfo(ctx.href),
   });
 })));
 

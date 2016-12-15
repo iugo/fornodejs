@@ -1,0 +1,21 @@
+doctype html
+html
+  head
+    title= title
+    include includes/head.pug
+    script(type='text/javascript') var _id = #{markId};
+    script(type='text/javascript', src='/javascripts/result.js')
+  body
+
+    include includes/top-menu.pug
+
+    .tips 信息载入中, 请稍后.
+
+    table.pure-table.pure-table-horizontal
+      thead
+        tr
+          td 姓名
+          td 项目
+          td 评分人
+          td 分数
+      tbody

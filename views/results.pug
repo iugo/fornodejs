@@ -3,17 +3,10 @@ html
   head
     title= title
     include includes/head.pug
-    script(type='text/javascript') var _id = #{markId};
     script(type='text/javascript', src='/javascripts/results.js')
   body
 
     include includes/top-menu.pug
 
-    table.pure-table.pure-table-horizontal
-      thead
-        tr
-          td 姓名
-          td 项目
-          td 评分人
-          td 分数
-      tbody
+    .display-line.marks
+      .loading 资料正在载入中, 请稍等.
