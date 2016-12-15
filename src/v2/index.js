@@ -463,7 +463,10 @@ module.exports = {
 
   markResults: co.wrap(function* (ctx, id) {
     const query = {
-      text: 'SELECT * FROM mark_results WHERE mark_id = $1;',
+      text: 'SELECT r.item_id AS "itemId", r.player, r.marker, r.score,\
+               r.total_score AS "totalScore", i.name AS "itemName" \
+             FROM mark_results AS r, mark_items AS i\
+             WHERE r.mark_id = $1 AND r.item_id = i.item_id;',
       values: [id]
     };
     const client = yield pool.connect();
@@ -472,7 +475,6 @@ module.exports = {
       if (res.rowCount === 0) {
         throw '连接成功, 但是操作失败';
       }
-      console.log(res);
       ctx.response.status = 200;
       const out = {
         error: 0,
