@@ -166,10 +166,10 @@ var app = {
     });
   },
 
-  submit: function () {
+  submit: function submit () {
     this._postData().then(function (json) {
-      alert('插入成功');
-      console.log(json);
+      alert('新建任务成功 ' + json.result.id);
+      window.location = '/marks';
     }).catch(function (err) {
       alert(err);
     });
