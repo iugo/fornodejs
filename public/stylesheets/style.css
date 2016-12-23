@@ -1,6 +1,7 @@
 /*
  * 跨页面通用样式:
- * Loading
+ * 淡入淡出效果
+ * https://gist.github.com/imkevinxu/4401674
  */
 
 .fadeIn {
@@ -40,6 +41,12 @@
     transform: translateY(50px);
   }
 }
+
+/*
+ * 跨页面通用样式:
+ * Loading
+ * https://github.com/tobiasahlin/SpinKit
+ */
 
 .loading {
   height: 100%;
