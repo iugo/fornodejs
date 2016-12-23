@@ -2,10 +2,13 @@
 
 ## 技术栈
 
-- Node.js 6.9.1
+- Node.js ^6.9.1
   - koa2
   - pug
+  - co
+  - pg
 - PostgreSQL 9.5.5
+
 
 ## 已经计划
 
