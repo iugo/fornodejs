@@ -43,18 +43,18 @@
   left: 0;
   top: 0;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: aliceblue;
 }
 
 .loading > span {
-  position: absolute;
-  padding-bottom: 90px;
+  margin-bottom: 2em;
 }
 
 .spinner {
-  padding-top: 10px;
+  margin-bottom: 4em;
   height: 40px;
   text-align: center;
   font-size: 10px;
