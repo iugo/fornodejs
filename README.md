@@ -4,9 +4,14 @@
 
 - Node.js ^6.9.1
   - koa2
+    - koa-bodyparser 格式化 Request Body
+    - koa-compress 压缩 Response Body
+    - koa-static 处理静态文件
+    - koa-route 路由
+    - koa-pug 与 koa 协同使用
   - pug
-  - co
-  - pg
+  - co
+  - pg PostgreSQL 操作库
 - PostgreSQL 9.5.5
 
 
