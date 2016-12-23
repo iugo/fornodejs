@@ -2,6 +2,24 @@
 
 // 无法使用 ES2015 箭头函数因为 IE11, Safari9, AndroidBrowser4.4 均不支持
 
+var common = {
+  hidden: function (dom) {
+    dom.classList.add('fadeOut');
+    setTimeout(function() {
+      dom.classList.add('hidden');
+      dom.classList.remove('fadeOut');
+    }, 1800);
+  },
+
+  display (dom) {
+    dom.classList.add('fadeIn');
+    dom.classList.remove('hidden');
+    setTimeout(function() {
+      dom.classList.remove('fadeIn');
+    }, 1800);
+  },
+};
+
 var app = {
   // 中转数据
   _allItems: [],
@@ -277,6 +295,7 @@ var app = {
         el = this._renderItemDom(arr[i]);
         this._renderExistingItems(el, this._items[this._allItems[arr[i]].id]);
       }
+      common.hidden(document.querySelector('.loading'));
     }.bind(this));
   },
 

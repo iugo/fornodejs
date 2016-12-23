@@ -9,6 +9,15 @@ html
 
     include includes/top-menu.pug
 
+    .loading
+      span.text 处理中, 请稍等.
+      .spinner
+        .rect1
+        .rect2
+        .rect3
+        .rect4
+        .rect5
+
     .pure-form.pure-form-stacked
       fieldset
         legend 任务编号 #{markId}
