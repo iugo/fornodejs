@@ -62,13 +62,14 @@ var app = {
     document.querySelector('.all-items').classList.add('hidden');
   },
 
-  selectItem: function (index) {
+  selectItem: function selectItem (index) {
     var itemId = this._allItems[index].id;
 
     if (this._items[itemId] !== undefined) {
       return;
     }
 
+    // 添加数据
     this._items[itemId] = {
       score: 0,
       markers: [],
@@ -79,10 +80,14 @@ var app = {
     this.hideAllItems();
   },
 
-  deleteItem: function (id, index) {
+  deleteItem: function deleteItem (id, index) {
+    var itemId = this._allItems[index].id;
     var el = document.getElementById(id);
     document.querySelector('.pure-form > fieldset .select-items').removeChild(el);
     this._renderSelectItem(index);
+
+    // 移除数据
+    this._items[itemId] = undefined;
   },
 
   _renderSelectItem: function (index, change) {
