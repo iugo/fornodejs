@@ -17,7 +17,9 @@ html
         textarea(name='description')
         label 评分标准
         textarea(name='grading')
-      .bottom-space.right
-        button.pure-button(onclick='app.addAnother();') 继续添加
-        button.pure-button(onclick='app.save();') 保存
-        a.pure-button(href='items') 返回
+
+      .bottom-space
+
+      button.pure-button.right-space(onclick='app.addAnother();') 保存并继续添加
+      button.pure-button.right-space(onclick='app.save();') 保存
+      a.pure-button(href='items') 返回
