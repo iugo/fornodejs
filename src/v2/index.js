@@ -26,7 +26,6 @@ module.exports = {
     } finally {
       client.release();
     }
-
   }),
 
   markItemsList: co.wrap(function* (ctx) {

@@ -29,17 +29,21 @@ var app = {
       console.log(err);
     });
   },
+
   save: function () {
     this._saveData().then(function (json) {
-      if (json.code !== 0) {
+      if (json.error === 0) {
         alert('插入成功');
+        window.location = '/items';
+      } else {
+        alert('插入失败: ' + json.error);
       }
     });
-    window.location = '/items';
   },
+
   addAnother: function () {
     this._saveData().then(function (json) {
-      if (json.code !== 0) {
+      if (json.error === 0) {
         alert('插入成功');
         window.location.reload(true);
       } else {
@@ -47,6 +51,7 @@ var app = {
       }
     });
   },
+
   dingCode: '',
 };
 
