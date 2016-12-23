@@ -1,3 +1,8 @@
+/*
+ * 跨页面通用样式:
+ * Loading
+ */
+
 .fadeIn {
   opacity: 0;
   animation: fadeIn 1.8s forwards;
@@ -107,6 +112,11 @@
   }
 }
 
+/*
+ * 跨页面通用样式:
+ * Base
+ */
+
 body {
   padding: 40px 1em;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
@@ -139,6 +149,29 @@ legend.top-space {
 .hidden {
   display: none;
 }
+
+.display-line {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5em auto;
+}
+
+label::after {
+  content: ':';
+}
+
+a.not-button, button.not-button {
+  background: none;
+  padding-left: 0;
+  padding-right: 0;
+  white-space: pre-wrap;
+  text-align: start;
+}
+
+/*
+ * 跨页面通用样式:
+ * Top Menu
+ */
 
 .top-menu {
   position: fixed;
@@ -176,41 +209,6 @@ legend.top-space {
 .top-menu-space {
   height: 2em;
 }
-
-a.not-button, button.not-button {
-  background: none;
-  padding-left: 0;
-  padding-right: 0;
-  white-space: pre-wrap;
-  text-align: start;
-}
-
-.display-line {
-  display: flex;
-  /*flex-wrap: wrap;*/
-  justify-content: space-between;
-  margin: 0.5em auto;
-}
-
-.test-div {
-  align-self: flex-end;
-}
-
-label::after {
-  content: ':';
-}
-
-/*i.custom {
-  height: 1.2em;
-  width: 1.2em;
-  color: white;
-  background-color: #909090;
-  border-radius: 50%;
-  display: inline-block;
-  text-align: center;
-  font: 1em all-petite-caps;
-  line-height: 1.5em;
-}*/
 
 /* new-mark */
 
