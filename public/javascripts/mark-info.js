@@ -325,9 +325,7 @@ var app = {
   },
 
   dingMarkers: function () {
-    alert('进入发钉函数');
     var markers = this._findMarkers(this._items);
-    alert('预计发钉对象为: ' + JSON.stringify(markers));
     dd.biz.ding.post({
       users: markers,
       corpId: _config.corpId,
@@ -352,9 +350,6 @@ var app = {
   _findMarkers: function (items) {
     var people = [];
     var itemsArr = Object.keys(items);
-
-    alert('遍历 items 完成, 将值转为数组');
-
     var pushArr = function (arr, v) {
       var i;
       for (i = arr.length - 1; i >= 0; i--) {
@@ -365,18 +360,12 @@ var app = {
       arr.push(v);
       return true;
     };
-
-    alert('定义了一个函数');
-
     itemsArr.forEach(function (key) {
       var item = items[key];
       item.markers.forEach(function (marker) {
         pushArr(people, marker.emplId);
       });
     });
-
-    alert('嵌套循环函数完成');
-
     return people;
   },
 
@@ -398,7 +387,6 @@ dd.config({
 });
 
 dd.ready(function () {
-  alert('钉钉准备完成');
   dd.runtime.permission.requestAuthCode({
     corpId: _config.corpId,
     onSuccess: function (result) {
