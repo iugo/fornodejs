@@ -8,12 +8,16 @@
     - koa-compress 压缩 Response Body
     - koa-static 处理静态文件
     - koa-route 路由
+  - [pug]
     - koa-pug 与 koa 协同使用
-  - pug
-  - co
-  - pg PostgreSQL 操作库
+  - [co] 实现类似 async/await 的流程控制
+  - [pg] PostgreSQL 客户端
+    文档比较分散, 多数用法 Promise 和 callback 均可使用.
 - PostgreSQL 9.5.5
 
+[co]: https://github.com/tj/co
+[pg]: https://github.com/brianc/node-postgres
+[pug]: https://pugjs.org/
 
 ## 已经计划
 
