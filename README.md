@@ -8,7 +8,7 @@
     - koa-compress 压缩 Response Body
     - koa-static 处理静态文件
     - koa-route 路由
-  - [pug]
+  - [pug] 之前名字叫作 jade
     - koa-pug 与 koa 协同使用
   - [co] 实现类似 async/await 的流程控制
   - [pg] PostgreSQL 客户端
