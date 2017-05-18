@@ -52,6 +52,8 @@ app.use(_.post('/api/v2/results/:id', api.v2.userMarking));
 app.use(_.get('/api/v2/results/:id', api.v2.markResults));
 // app.use(_.get('/api/v1/results/:markId/mine', api.v1.myMarkResults))
 
+app.use(_.get('/api/v2/login/:code', api.v2.loginByCode));
+
 // --- 以下为前端渲染 ---
 // 其实我是想要用单页应用的, 强烈愿望. 可是我赞同其思想的 Polymer 不给力, 流行的 React 我
 // 又不够熟, 无法在几天内完成该项目, 所以只好一页页渲染. 工具类就该单页应用, TODO.
@@ -137,6 +139,12 @@ app.use(_.get('/results', co.wrap(function *(ctx) {
   ctx.render('results', {
     title: '数据查询',
     select: 'result',
+    config: yield dingJsInfo(ctx.href),
+  });
+})));
+
+app.use(_.get('/send-code', co.wrap(function *(ctx) {
+  ctx.render('send-code', {
     config: yield dingJsInfo(ctx.href),
   });
 })));

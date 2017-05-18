@@ -487,4 +487,8 @@ module.exports = {
       client.release();
     }
   }),
+
+  loginByCode: co.wrap(function* (ctx, code) {
+    return '得到 code 为: ' + code
+  })
 };
