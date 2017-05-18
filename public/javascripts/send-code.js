@@ -7,8 +7,6 @@ dd.config({
 });
 
 dd.ready(function () {
-  alert('dd ready');
-
   dd.runtime.permission.requestAuthCode({
     corpId: _config.corpId,
     onSuccess: function (result) {
