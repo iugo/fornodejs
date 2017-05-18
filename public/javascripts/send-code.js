@@ -13,7 +13,7 @@ dd.ready(function () {
     corpId: _config.corpId,
     onSuccess: function (result) {
       alert('自动登入 code 为: ' + JSON.stringify(result));
-      location.href = '/api/v2/login/' + result.code
+      location.href = '/api/v2/login/' + result.code + '/' + _codeBaseKey
     },
     onFail: function (err) {
       alert('无法获得 code: ' + JSON.stringify(err));

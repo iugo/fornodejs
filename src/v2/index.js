@@ -488,7 +488,8 @@ module.exports = {
     }
   }),
 
-  loginByCode: co.wrap(function* (ctx, code) {
-    return '得到 code 为: ' + code
+  loginByCode: co.wrap(function* (ctx, code, codeBaseKey) {
+    const userInfo = yield dingUserInfo(code)
+    ctx.body = JSON.stringify(userInfo) + codeBaseKey
   })
 };
