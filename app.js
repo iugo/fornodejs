@@ -146,7 +146,7 @@ app.use(_.get('/results', co.wrap(function *(ctx) {
 app.use(_.get('/send-code/:codeBaseKey', co.wrap(function *(ctx, codeBaseKey) {
   ctx.render('send-code', {
     config: yield dingJsInfo(ctx.href),
-    codeBaseKey,
+    codeBaseKey: codeBaseKey,
   });
 })));
 
