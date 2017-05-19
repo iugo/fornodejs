@@ -61,10 +61,10 @@ function sign (params) {
 // sys_level 级别，0：非管理员 1：超级管理员（主管理员） 2：普通管理员（子管理员） 100：老板
 
 const getUserInfo = async code => {
-  const accessToken = await invoke('/gettoken', {
+  const accessToken = (await invoke('/gettoken', {
     corpid: corpId,
     corpsecret: secret
-  })['access_token'];
+  }))['access_token'];
   console.log('得到 accessToken 为: ', accessToken)
   return Promise.resolve(await invoke('/user/getuserinfo', {
     access_token: accessToken,
