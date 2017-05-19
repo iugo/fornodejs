@@ -60,16 +60,16 @@ function sign (params) {
 // is_sys 是否是管理员
 // sys_level 级别，0：非管理员 1：超级管理员（主管理员） 2：普通管理员（子管理员） 100：老板
 
-const getUserInfo = co.wrap(function* (code) {
-  const accessToken = (yield invoke('/gettoken', {
+const getUserInfo = async code => {
+  const accessToken = await invoke('/gettoken', {
     corpid: corpId,
     corpsecret: secret
-  }))['access_token'];
-  return (yield invoke('/user/getuserinfo', {
+  })['access_token'];
+  return await invoke('/user/getuserinfo', {
     access_token: accessToken,
     code: code
-  }));
-});
+  });
+};
 
 const dingJsInfo = co.wrap(function* (url) {
   var nonceStr = randomstring.generate(7);
