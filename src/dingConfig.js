@@ -1,55 +1,61 @@
-const co = require('co');
+require('dotenv').config();
 const randomstring = require('randomstring');
-var https = require('https');
-var querystring = require('querystring');
-var url = require('url');
-var crypto = require('crypto');
+const https = require('https');
+const querystring = require('querystring');
+const url = require('url');
+const crypto = require('crypto');
 
 const OAPI_HOST = 'https://oapi.dingtalk.com';
-const corpId = process.env.CORPID || require('../env').corpId;
-const secret = process.env.CORPSECRET || require('../env').secret;
+const corpId = process.env.CORPID;
+const secret = process.env.CORPSECRET;
 
-function invoke (path, params) {
-  return new Promise(function (resolve, reject) {
-    const getUrl = OAPI_HOST + path + '?' + querystring.stringify(params);
-    https.get(getUrl, function (res) {
+/**
+ * 调用钉钉服务器 API
+ * @param {string} path - 调用路径
+ * @param {Object} params - 调用参数
+ * @return {Promise}
+ */
+function invoke(path, params) {
+  return new Promise((resolve, reject) => {
+    const getUrl = `${OAPI_HOST + path}?${querystring.stringify(params)}`;
+    https.get(getUrl, res => {
       if (res.statusCode === 200) {
-        var body = '';
-        res.on('data', function (data) {
+        let body = '';
+        res.on('data', data => {
           body += data;
-        }).on('end', function () {
-          var result = JSON.parse(body);
-          if (result && 0 === result.errcode) {
+        }).on('end', () => {
+          const result = JSON.parse(body);
+          if (result && result.errcode === 0) {
             resolve(result);
           }
           reject(result);
         });
       } else {
-        reject(res.statusCode + '访问失败');
+        reject(`res.statusCode}访问失败`);
       }
     });
-  }).catch((err) => {
-    if (typeof err === 'object') {
-      err = JSON.stringify(err);
-    }
-    console.log('钉钉 Promise 错误' + err);
   });
 }
 
-function sign (params) {
-  var origUrl = params.url;
-  var origUrlObj = url.parse(origUrl);
-  delete origUrlObj['hash'];
-  var newUrl = url.format(origUrlObj);
-  var plain = 'jsapi_ticket=' + params.ticket +
+/**
+ * 钉钉 API 生成签名
+ * @param {Object} params - 参数
+ * @return {string}
+ */
+function sign(params) {
+  const origUrl = params.url;
+  const origUrlObj = url.parse(origUrl);
+  delete origUrlObj.hash;
+  const newUrl = url.format(origUrlObj);
+  const plain = 'jsapi_ticket=' + params.ticket +
     '&noncestr=' + params.nonceStr +
     '&timestamp=' + params.timeStamp +
     '&url=' + newUrl;
 
   // console.log(plain);
-  var sha1 = crypto.createHash('sha1');
+  const sha1 = crypto.createHash('sha1');
   sha1.update(plain, 'utf8');
-  var signature = sha1.digest('hex');
+  const signature = sha1.digest('hex');
   // console.log('signature: ' + signature);
   return signature;
 }
@@ -64,54 +70,50 @@ const getUserInfo = async code => {
   const accessToken = (await invoke('/gettoken', {
     corpid: corpId,
     corpsecret: secret
-  }))['access_token'];
-  console.log('得到 accessToken 为: ', accessToken)
+  })).access_token;
   return invoke('/user/getuserinfo', {
     access_token: accessToken,
-    code: code
+    code
   });
 };
 
-const dingJsInfo = co.wrap(function* (url) {
-  var nonceStr = randomstring.generate(7);
-  var timeStamp = new Date().getTime();
-  var signedUrl = decodeURIComponent(url);
+/**
+ * 获得钉钉前端配置信息
+ * @param {string} remoteUrl - 被访问的 URL
+ * @return {Object}
+ */
+async function dingJsInfo(remoteUrl) {
+  const nonceStr = randomstring.generate(7);
+  const timeStamp = new Date().getTime();
+  const signedUrl = decodeURIComponent(remoteUrl);
 
-  function g () {
-    return co(function* () {
-      var accessToken = (yield invoke('/gettoken', {
-        corpid: corpId,
-        corpsecret: secret
-      }))['access_token'];
-      var ticket = (yield invoke('/get_jsapi_ticket', {
-        type: 'jsapi',
-        access_token: accessToken
-      }))['ticket'];
-      var signature = sign({
-        nonceStr: nonceStr,
-        timeStamp: timeStamp,
-        url: signedUrl,
-        ticket: ticket
-      });
-      return {
-        agentId: process.env.AGENTID || 'noneInTestEvn',
-        signature: signature,
-        nonceStr: nonceStr,
-        timeStamp: timeStamp,
-        corpId: corpId
-      };
-    }).catch(function (err) {
-      console.log(err);
-    });
-  }
+  const accessToken = (await invoke('/gettoken', {
+    corpid: corpId,
+    corpsecret: secret
+  })).access_token;
 
-  return JSON.stringify(yield g());
+  const ticket = (await invoke('/get_jsapi_ticket', {
+    type: 'jsapi',
+    access_token: accessToken
+  })).ticket;
 
-});
+  const signature = sign({
+    nonceStr,
+    timeStamp,
+    url: signedUrl,
+    ticket,
+  });
 
-console.log('getUserInfo: ', getUserInfo, 'dingJsInfo', dingJsInfo)
+  return JSON.stringify({
+    agentId: process.env.AGENTID || 'noneInTestEvn',
+    signature,
+    nonceStr,
+    timeStamp,
+    corpId,
+  });
+}
 
 module.exports = {
-  dingJsInfo: dingJsInfo,
-  getUserInfo: getUserInfo,
+  dingJsInfo,
+  getUserInfo,
 };

@@ -10,8 +10,9 @@
     }
   },
   "plugins": ["node"],
-  "extends": ["eslint:recommended", "google", "plugin:node/recommended"],
+  "extends": ["eslint:recommended", "airbnb-base", "google", "plugin:node/recommended"],
   "rules": {
+    "arrow-parens": ["error", "as-needed"],
     "no-param-reassign": ["error", {
       "props": false
     }],
@@ -20,7 +21,8 @@
       "objects": "only-multiline",
       "functions": "never"
     }],
-    // "arrow-parens": ["error", "as-needed"],
+    "prefer-template": 0,
+    "yoda": ["error", "never"],
     "semi": 2
   }
 }

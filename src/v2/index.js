@@ -7,18 +7,17 @@ module.exports = {
     // TODO: 对请求中的各项数据进行验证(如非空).
     const b = ctx.request.body;
     const query = {
-      text: 'INSERT INTO mark_items (name, description, grading)\
-             VALUES ($1, $2, $3) RETURNING item_id AS "itemId";',
+      text: `INSERT INTO mark_items (name, description, grading)
+             VALUES ($1, $2, $3) RETURNING item_id AS "itemId";`,
       values: [b.name, b.desc, b.grading]
     };
 
-    var client = yield pool.connect();
+    const client = yield pool.connect();
     try {
-      var res = yield client.query(query.text, query.values);
+      const res = yield client.query(query.text, query.values);
       if (res.rowCount === 0) {
-        throw '连接成功, 但是操作失败';
+        throw new Error('连接成功, 但是操作失败');
       }
-      console.log(res);
       ctx.response.status = 201;
       ctx.body = '{"error": 0,"result": {"id": "' + res.rows[0].itemId + '"}}';
     } catch (err) {
@@ -30,8 +29,8 @@ module.exports = {
 
   markItemsList: co.wrap(function* (ctx) {
     const query = {
-      text: 'SELECT item_id AS id, name, description AS desc, grading\
-             FROM mark_items;'
+      text: `SELECT item_id AS id, name, description AS desc, grading
+             FROM mark_items;`
     };
     const client = yield pool.connect();
     try {
@@ -123,7 +122,6 @@ module.exports = {
     } finally {
       client.release();
     }
-
   }),
 
   newMark: co.wrap(function* (ctx) {
@@ -202,8 +200,8 @@ module.exports = {
 
   markInfo: co.wrap(function* (ctx, id) {
     const query = {
-      text: 'SELECT title, players, items, create_timestamp AS "createTime"\
-             FROM marks WHERE mark_id = $1;',
+      text: `SELECT title, players, items, create_timestamp AS "createTime"
+             FROM marks WHERE mark_id = $1;`,
       values: [id]
     };
     const client = yield pool.connect();
@@ -229,9 +227,9 @@ module.exports = {
     // TODO: 对请求中的各项数据进行验证(如非空).
     const b = ctx.request.body;
     const query = {
-      text: 'UPDATE marks\
-             SET title = $2, players = $3, items = $4\
-             WHERE mark_id = $1;',
+      text: `UPDATE marks
+             SET title = $2, players = $3, items = $4
+             WHERE mark_id = $1;`,
       values: [id, b.title, b.players, b.items]
     };
     var client = yield pool.connect();
@@ -489,7 +487,7 @@ module.exports = {
   }),
 
   loginByCode: co.wrap(function* (ctx, code, codeBaseKey) {
-    const userInfo = yield dingUserInfo(code)
-    ctx.body = JSON.stringify(userInfo) + codeBaseKey
+    const userInfo = yield dingUserInfo(code);
+    ctx.body = JSON.stringify(userInfo) + codeBaseKey;
   })
 };
