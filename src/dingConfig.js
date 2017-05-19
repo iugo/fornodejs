@@ -65,10 +65,10 @@ const getUserInfo = async code => {
     corpid: corpId,
     corpsecret: secret
   })['access_token'];
-  return invoke('/user/getuserinfo', {
+  return Promise.resolve(await invoke('/user/getuserinfo', {
     access_token: accessToken,
     code: code
-  });
+  }));
 };
 
 const dingJsInfo = co.wrap(function* (url) {
@@ -107,6 +107,8 @@ const dingJsInfo = co.wrap(function* (url) {
   return JSON.stringify(yield g());
 
 });
+
+console.log('getUserInfo: ', getUserInfo, 'dingJsInfo', dingJsInfo)
 
 module.exports = {
   dingJsInfo: dingJsInfo,
