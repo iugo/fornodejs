@@ -65,6 +65,7 @@ const getUserInfo = async code => {
     corpid: corpId,
     corpsecret: secret
   })['access_token'];
+  console.log('得到 accessToken 为: ', accessToken)
   return Promise.resolve(await invoke('/user/getuserinfo', {
     access_token: accessToken,
     code: code
