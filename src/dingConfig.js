@@ -65,7 +65,7 @@ const getUserInfo = async code => {
     corpid: corpId,
     corpsecret: secret
   })['access_token'];
-  return await invoke('/user/getuserinfo', {
+  return invoke('/user/getuserinfo', {
     access_token: accessToken,
     code: code
   });
