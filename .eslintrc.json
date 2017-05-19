@@ -1,0 +1,26 @@
+{
+  "env": {
+    "node": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2017,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "impliedStrict": true
+    }
+  },
+  "plugins": ["node"],
+  "extends": ["eslint:recommended", "google", "plugin:node/recommended"],
+  "rules": {
+    "no-param-reassign": ["error", {
+      "props": false
+    }],
+    "comma-dangle": ["error", {
+      "arrays": "only-multiline",
+      "objects": "only-multiline",
+      "functions": "never"
+    }],
+    // "arrow-parens": ["error", "as-needed"],
+    "semi": 2
+  }
+}
