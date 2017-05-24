@@ -84,6 +84,8 @@ async function getToken() {
  */
 function getUserInfo(code) {
   const accessToken = getToken();
+  console.log('getUserInfo 被调用',
+    'getToken:', getToken, 'accessToken:', accessToken);
   return invoke('/user/getuserinfo', {
     access_token: accessToken,
     code
