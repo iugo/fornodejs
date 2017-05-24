@@ -62,15 +62,13 @@ function sign(params) {
 
 /**
  * 获得钉钉 accessToken
- * @return {string}
+ * @return {Promise}
  */
-async function getToken() {
-  const accessToken = (await invoke('/gettoken', {
+function getToken() {
+  return (invoke('/gettoken', {
     corpid: corpId,
     corpsecret: secret
   })).access_token;
-  console.log('getToken 函数内部得到的 accessToken 为: ', accessToken);
-  return accessToken;
 }
 
 // return:
@@ -82,10 +80,10 @@ async function getToken() {
 /**
  * 获得用户基本信息
  * @param {string} code - 从钉钉前端获取的 code
- * @return {Object}
+ * @return {Promise}
  */
-function getUserInfo(code) {
-  const accessToken = getToken();
+async function getUserInfo(code) {
+  const accessToken = await getToken();
   console.log('getUserInfo 被调用', 'accessToken:', accessToken);
   return invoke('/user/getuserinfo', {
     access_token: accessToken,
