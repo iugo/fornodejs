@@ -4,15 +4,17 @@
  */
 
 const Koa = require('koa');
-const app = new Koa();
 const co = require('co');
 const serve = require('koa-static');
 const _ = require('koa-route');
 const bodyParser = require('koa-bodyparser');
 const compress = require('koa-compress');
-const dingJsInfo = require('./src/dingConfig.js').dingJsInfo;
+const zlib = require('zlib');
+
+const app = new Koa();
 
 // 业务模块导入
+const dingJsInfo = require('./src/dingConfig.js').dingJsInfo;
 const pets = require('./src/pets.js');
 const api = require('./src/api.js');
 // const rendering = require('./src/rendering.js');
@@ -21,13 +23,13 @@ app.use(serve('public'));
 
 app.use(compress({
   threshold: 1024,
-  flush: require('zlib').Z_SYNC_FLUSH
+  flush: zlib.Z_SYNC_FLUSH
 }));
 
-app.use(co.wrap(function *(ctx, next) {
+app.use(async (ctx, next) => {
   ctx.type = 'application/json; charset=utf-8';
-  yield next();
-}));
+  await next();
+});
 
 app.use(bodyParser());
 
@@ -61,13 +63,14 @@ app.use(_.get('/api/v2/login/:code/:codeBaseKey', api.v2.loginByCode));
 // 认证, 导致无法直接服务端渲染. 更加适合单页应用在客户端异步渲染. -- iugo
 
 const Pug = require('koa-pug');
-new Pug({
+
+const pug = new Pug({
   viewPath: './views',
   debug: false,
   pretty: false,
   compileDebug: false,
-  app: app
 });
+pug.use(app);
 
 app.use(_.get('/new-item', co.wrap(function *(ctx) {
   ctx.render('new-item', {
@@ -143,20 +146,18 @@ app.use(_.get('/results', co.wrap(function *(ctx) {
   });
 })));
 
-app.use(_.get('/send-code/:codeBaseKey', co.wrap(function *(ctx, codeBaseKey) {
+app.use(_.get('/send-code/:codeBaseKey', async (ctx, codeBaseKey) => {
   ctx.render('send-code', {
-    config: yield dingJsInfo(ctx.href),
-    codeBaseKey: codeBaseKey,
+    config: await dingJsInfo(ctx.href),
+    codeBaseKey,
   });
-})));
+}));
 
 app.use(co.wrap(function *(ctx, next) {
-
   ctx.render('index', {
     title: '测试中',
     config: yield dingJsInfo(ctx.href)
   });
-
 }));
 
 app.listen(process.env.PORT || 9876);

@@ -12,7 +12,7 @@ const secret = process.env.CORPSECRET;
 /**
  * 调用钉钉服务器 API
  * @param {string} path - 调用路径
- * @param {Object} params - 调用参数
+ * @param {object} params - 调用参数
  * @return {Promise}
  */
 function invoke(path, params) {
@@ -39,7 +39,7 @@ function invoke(path, params) {
 
 /**
  * 钉钉 API 生成签名
- * @param {Object} params - 参数
+ * @param {object} params - 参数
  * @return {string}
  */
 function sign(params) {
@@ -51,18 +51,15 @@ function sign(params) {
     '&noncestr=' + params.nonceStr +
     '&timestamp=' + params.timeStamp +
     '&url=' + newUrl;
-
-  // console.log(plain);
   const sha1 = crypto.createHash('sha1');
   sha1.update(plain, 'utf8');
   const signature = sha1.digest('hex');
-  // console.log('signature: ' + signature);
   return signature;
 }
 
 /**
  * 获得钉钉 accessToken
- * @return {Promise}
+ * @return {Promise.<string>}
  */
 async function getToken() {
   return (await invoke('/gettoken', {
@@ -71,20 +68,17 @@ async function getToken() {
   })).access_token;
 }
 
-// return:
-// userid 员工在企业内的UserID
-// deviceId 手机设备号,由钉钉在安装时随机产生
-// is_sys 是否是管理员
-// sys_level 级别，0：非管理员 1：超级管理员（主管理员） 2：普通管理员（子管理员） 100：老板
-
 /**
  * 获得用户基本信息
  * @param {string} code - 从钉钉前端获取的 code
- * @return {Promise}
+ * @return {Promise.<object>} userInfo
+ * userid    - 员工在企业内的UserID
+ * deviceId  - 手机设备号,由钉钉在安装时随机产生
+ * is_sys    - 是否是管理员
+ * sys_level - 级别，0：非管理员 1：超级管理员（主管理员） 2：普通管理员（子管理员） 100：老板
  */
 async function getUserInfo(code) {
   const accessToken = await getToken();
-  console.log('getUserInfo 被调用', '1:', accessToken, '2:', getToken());
   return invoke('/user/getuserinfo', {
     access_token: accessToken,
     code
@@ -101,10 +95,7 @@ async function dingJsInfo(remoteUrl) {
   const timeStamp = new Date().getTime();
   const signedUrl = decodeURIComponent(remoteUrl);
 
-  const accessToken = (await invoke('/gettoken', {
-    corpid: corpId,
-    corpsecret: secret
-  })).access_token;
+  const accessToken = await getToken();
 
   const ticket = (await invoke('/get_jsapi_ticket', {
     type: 'jsapi',

@@ -21,7 +21,7 @@
       "objects": "only-multiline",
       "functions": "never"
     }],
-    "prefer-template": 0,
+    "prefer-template": "warn",
     "yoda": ["error", "never"],
     "semi": 2
   }
