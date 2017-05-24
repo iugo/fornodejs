@@ -65,10 +65,12 @@ function sign(params) {
  * @return {string}
  */
 async function getToken() {
-  return (await invoke('/gettoken', {
+  const accessToken = (await invoke('/gettoken', {
     corpid: corpId,
     corpsecret: secret
   })).access_token;
+  console.log('getToken 函数内部得到的 accessToken 为: ', accessToken);
+  return accessToken;
 }
 
 // return:
@@ -84,8 +86,7 @@ async function getToken() {
  */
 function getUserInfo(code) {
   const accessToken = getToken();
-  console.log('getUserInfo 被调用',
-    'getToken:', getToken, 'accessToken:', accessToken);
+  console.log('getUserInfo 被调用', 'accessToken:', accessToken);
   return invoke('/user/getuserinfo', {
     access_token: accessToken,
     code
