@@ -64,8 +64,8 @@ function sign(params) {
  * 获得钉钉 accessToken
  * @return {Promise}
  */
-function getToken() {
-  return (invoke('/gettoken', {
+async function getToken() {
+  return (await invoke('/gettoken', {
     corpid: corpId,
     corpsecret: secret
   })).access_token;
@@ -84,7 +84,7 @@ function getToken() {
  */
 async function getUserInfo(code) {
   const accessToken = await getToken();
-  console.log('getUserInfo 被调用', 'accessToken:', accessToken);
+  console.log('getUserInfo 被调用', '1:', accessToken, '2:', getToken());
   return invoke('/user/getuserinfo', {
     access_token: accessToken,
     code
