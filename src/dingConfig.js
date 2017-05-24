@@ -60,22 +60,35 @@ function sign(params) {
   return signature;
 }
 
+/**
+ * 获得钉钉 accessToken
+ * @return {string}
+ */
+async function getToken() {
+  return (await invoke('/gettoken', {
+    corpid: corpId,
+    corpsecret: secret
+  })).access_token;
+}
+
 // return:
 // userid 员工在企业内的UserID
 // deviceId 手机设备号,由钉钉在安装时随机产生
 // is_sys 是否是管理员
 // sys_level 级别，0：非管理员 1：超级管理员（主管理员） 2：普通管理员（子管理员） 100：老板
 
-const getUserInfo = async code => {
-  const accessToken = (await invoke('/gettoken', {
-    corpid: corpId,
-    corpsecret: secret
-  })).access_token;
+/**
+ * 获得用户基本信息
+ * @param {string} code - 从钉钉前端获取的 code
+ * @return {Object}
+ */
+function getUserInfo(code) {
+  const accessToken = getToken();
   return invoke('/user/getuserinfo', {
     access_token: accessToken,
     code
   });
-};
+}
 
 /**
  * 获得钉钉前端配置信息
