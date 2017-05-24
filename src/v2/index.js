@@ -1,6 +1,7 @@
 const co = require('co');
 const pool = require('../postgresql.js');
 const dingUserInfo = require('../dingConfig.js').getUserInfo;
+const firebase = require('../firebase');
 
 module.exports = {
   newMarkItem: co.wrap(function* (ctx) {
@@ -488,6 +489,12 @@ module.exports = {
 
   loginByCode: co.wrap(function* (ctx, code, codeBaseKey) {
     const userInfo = yield dingUserInfo(code);
+    const codeRef = firebase.ref('code');
+    codeRef.child(codeBaseKey).set({
+      code,
+      userid: userInfo.userid,
+      token: '未获取',
+    });
     ctx.body = JSON.stringify(userInfo) + codeBaseKey;
   })
 };
